@@ -1,0 +1,83 @@
+@use "./base/reset";
+@use "./base/extends";
+@use "./base/variables" as *;
+@use "./base/fonts" as *;
+@use "./base/mixins" as *;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+}
+.container {
+  padding: 20px;
+}
+
+.header {
+  background-image: url("./src/images/old_ruins.jpg");
+  height: 50px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  &__title {
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    margin-left: 20px;
+  }
+}
+
+.scroll-container {
+  background-color: black;
+}
+.navbar {
+  display: flex;
+  gap: 20px;
+  &__listitem {
+    padding: 5px;
+    &__link {
+      font-size: 12px;
+      color: white;
+      text-decoration: none;
+
+      padding: 5px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.home {
+  &__title {
+    font-size: 20px;
+    color: #50808e;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    border-bottom: 2px solid #50808e;
+  }
+  &__article {
+    &__textblock {
+      line-height: 20px;
+      margin: 20px 0;
+    }
+  }
+}
+
+.footer {
+  background-color: #69a297;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__text {
+    font-size: 10px;
+    &__symbol {
+      font-size: 8px;
+    }
+  }
+}
