@@ -8,4 +8,4 @@
 
 -front page
 
--functionele analuse
+-functionele analyse
