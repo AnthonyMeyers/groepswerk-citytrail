@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { from, fromEvent } from "rxjs";
+import { map, throttleTime } from "rxjs/operators";
 
-export default class AppNavbar extends React.Component {
-  constructor(props) {
-    super(props);
+export default function AppNavbar() {
+  const [topbar, setTopbar] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollBar);
+    return () => window.removeEventListener("scroll", handleScrollBar);
+  }, []);
+  function handleScrollBar() {
+    window.scrollY > 47.5 ? setTopbar(true) : setTopbar(false);
   }
 
-  handleScrollEvent() {
-    console.log("hi");
-  }
-  render() {
-    return (
-      <div className="scroll-container" onScroll={this.handleScrollEvent}>
+  return (
+    <div className={topbar ? "scroll-container topbar" : "scroll-container"}>
+      <div className="container">
         <ul className="navbar">
           <li className="navbar__listitem">
             <a className="navbar__listitem__link" href="index.html">
@@ -34,6 +39,6 @@ export default class AppNavbar extends React.Component {
           </li>
         </ul>
       </div>
-    );
-  }
+    </div>
+  );
 }
