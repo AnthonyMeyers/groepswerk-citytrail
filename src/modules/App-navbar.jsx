@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { from, fromEvent } from "rxjs";
-import { map, throttleTime } from "rxjs/operators";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
 
 export default function AppNavbar() {
   const [topbar, setTopbar] = useState(false);
@@ -14,31 +19,31 @@ export default function AppNavbar() {
   }
 
   return (
-    <div className={topbar ? "scroll-container topbar" : "scroll-container"}>
-      <div className="container">
+    <>
+      <div className={topbar ? "scroll-container topbar" : "scroll-container"}>
         <ul className="navbar">
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
+            <NavLink to={"/home"} className="navbar__listitem__link">
               Home
-            </a>
+            </NavLink>
           </li>
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
-              Zoekpagina
-            </a>
+            <NavLink to={"/zoek"} className="navbar__listitem__link">
+              Zoek
+            </NavLink>
           </li>
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
+            <NavLink to={"/register"} className="navbar__listitem__link">
               Register
-            </a>
+            </NavLink>
           </li>
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
+            <NavLink to={"/team"} className="navbar__listitem__link">
               Team
-            </a>
+            </NavLink>
           </li>
         </ul>
       </div>
-    </div>
+    </>
   );
 }

@@ -10,6 +10,7 @@ body {
 }
 .container {
   max-width: 1200px;
+  padding: 20px;
 }
 
 .header {
@@ -42,21 +43,27 @@ body {
 .navbar {
   display: flex;
   gap: 20px;
+  padding: 10px 17px;
   &__listitem {
-    padding: 5px;
+    padding: 5px 7px;
     &__link {
+      display: block;
       font-size: 12px;
       color: white;
       text-decoration: none;
-
       padding: 5px;
+      text-align: center;
       text-transform: uppercase;
+      &:hover {
+        background-color: gray;
+        border-radius: 5px;
+        transition-duration: 1s;
+      }
     }
   }
 }
 
 .home {
-  padding: 20px;
   &__title {
     font-size: 20px;
     color: #50808e;

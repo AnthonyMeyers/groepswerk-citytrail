@@ -6,13 +6,21 @@ import AppNavbar from "./modules/App-navbar";
 import AppFooter from "./modules/App-footer";
 import AppHome from "./modules/App-home";
 
+import Routing from "./modules/router";
+
 export default function App() {
   return (
     <>
       <AppHeader></AppHeader>
       <AppNavbar></AppNavbar>
-      <AppHome></AppHome>
+      <div class="container">
+        <Routing></Routing>
+      </div>
+
       <AppFooter></AppFooter>
     </>
   );
 }
+/*<AppNavbar></AppNavbar>
+
+<AppHome></AppHome>*/

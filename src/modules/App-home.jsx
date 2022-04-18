@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function appHome() {
+export default function AppHome() {
   return (
-    <div className="container">
+    <>
       <section className="home">
         <h2 className="home__title">Inleiding</h2>
         <article className="home__article">
@@ -37,6 +37,6 @@ export default function appHome() {
           </p>
         </article>
       </section>
-    </div>
+    </>
   );
 }
