@@ -166,13 +166,13 @@ h3 {
       flex-direction: row;
     }
   }
-}
 
-.navbar {
-  gap: 30px;
-  &__listitem {
-    &__link {
-      font-size: 18px;
+  .navbar {
+    gap: 30px;
+    &__listitem {
+      &__link {
+        font-size: 18px;
+      }
     }
   }
 }
