@@ -103,13 +103,14 @@ h3 {
     gap: 20px;
     &__imgholder {
       position: relative;
-      border: 3px solid transparent;
       width: 300px;
       border-radius: 15px;
       overflow: hidden;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
       &:hover {
         transition: 2s;
-        border-color: black;
+        filter: grayscale(0);
       }
       &__img {
         object-fit: contain;
