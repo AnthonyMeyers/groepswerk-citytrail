@@ -1,11 +1,11 @@
 import React from "react";
 
-export default class AppHeader extends React.Component {
-  render() {
-    return (
-      <header className="header">
+export default function AppHeader() {
+  return (
+    <header className="header">
+      <div className="container">
         <h1 className="header__title">Citytrail</h1>
-      </header>
-    );
-  }
+      </div>
+    </header>
+  );
 }

@@ -1,39 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default class AppNavbar extends React.Component {
-  constructor(props) {
-    super(props);
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
+
+export default function AppNavbar() {
+  const [topbar, setTopbar] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollBar);
+    return () => window.removeEventListener("scroll", handleScrollBar);
+  }, []);
+  function handleScrollBar() {
+    window.scrollY > 47.5 ? setTopbar(true) : setTopbar(false);
   }
 
-  handleScrollEvent() {
-    console.log("hi");
-  }
-  render() {
-    return (
-      <div className="scroll-container" onScroll={this.handleScrollEvent}>
+  return (
+    <>
+      <div className={topbar ? "scroll-container topbar" : "scroll-container"}>
         <ul className="navbar">
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
+            <NavLink to={"/home"} className="navbar__listitem__link">
               Home
-            </a>
+            </NavLink>
           </li>
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
-              Zoekpagina
-            </a>
+            <NavLink to={"/zoek"} className="navbar__listitem__link">
+              Zoek
+            </NavLink>
           </li>
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
+            <NavLink to={"/register"} className="navbar__listitem__link">
               Register
-            </a>
+            </NavLink>
           </li>
           <li className="navbar__listitem">
-            <a className="navbar__listitem__link" href="index.html">
+            <NavLink to={"/team"} className="navbar__listitem__link">
               Team
-            </a>
+            </NavLink>
           </li>
         </ul>
       </div>
-    );
-  }
+    </>
+  );
 }

@@ -9,6 +9,7 @@ body {
   background-color: whitesmoke;
 }
 .container {
+  max-width: 1200px;
   padding: 20px;
 }
 
@@ -32,18 +33,32 @@ body {
 .scroll-container {
   background-color: black;
 }
+
+.topbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
 .navbar {
   display: flex;
   gap: 20px;
+  padding: 10px 17px;
   &__listitem {
-    padding: 5px;
+    padding: 5px 7px;
     &__link {
+      display: block;
       font-size: 12px;
       color: white;
       text-decoration: none;
-
       padding: 5px;
+      text-align: center;
       text-transform: uppercase;
+      &:hover {
+        background-color: gray;
+        border-radius: 5px;
+        transition-duration: 1s;
+      }
     }
   }
 }
