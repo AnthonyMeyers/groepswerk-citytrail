@@ -7,9 +7,10 @@ import {
   NavLink,
 } from "react-router-dom";
 
-export default function AppNavbar() {
+export default function AppNavbar({ className, onClickItem }) {
   const [topbar, setTopbar] = useState(false);
 
+  /*
   useEffect(() => {
     window.addEventListener("scroll", handleScrollBar);
     return () => window.removeEventListener("scroll", handleScrollBar);
@@ -17,28 +18,51 @@ export default function AppNavbar() {
   function handleScrollBar() {
     window.scrollY > 47.5 ? setTopbar(true) : setTopbar(false);
   }
-
+*/
   return (
     <>
-      <div className={topbar ? "scroll-container topbar" : "scroll-container"}>
+      <div
+        id="navbar"
+        className={
+          className === "mobile"
+            ? "scroll-container hidden"
+            : "scroll-container"
+        }
+      >
         <ul className="navbar">
           <li className="navbar__listitem">
-            <NavLink to={"/home"} className="navbar__listitem__link">
+            <NavLink
+              to={"/home"}
+              onClick={onClickItem}
+              className="navbar__listitem__link"
+            >
               Home
             </NavLink>
           </li>
           <li className="navbar__listitem">
-            <NavLink to={"/zoek"} className="navbar__listitem__link">
+            <NavLink
+              to={"/zoek"}
+              onClick={onClickItem}
+              className="navbar__listitem__link"
+            >
               Zoek
             </NavLink>
           </li>
           <li className="navbar__listitem">
-            <NavLink to={"/register"} className="navbar__listitem__link">
+            <NavLink
+              to={"/register"}
+              onClick={onClickItem}
+              className="navbar__listitem__link"
+            >
               Register
             </NavLink>
           </li>
           <li className="navbar__listitem">
-            <NavLink to={"/team"} className="navbar__listitem__link">
+            <NavLink
+              to={"/team"}
+              onClick={onClickItem}
+              className="navbar__listitem__link"
+            >
               Team
             </NavLink>
           </li>
