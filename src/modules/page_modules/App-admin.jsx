@@ -1,4 +1,4 @@
-export default function AppRegister() {
+export default function AppAdmin() {
   return (
     <>
       <p>register</p>

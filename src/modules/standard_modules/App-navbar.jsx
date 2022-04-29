@@ -8,17 +8,9 @@ import {
 } from "react-router-dom";
 
 export default function AppNavbar({ className, onClickItem }) {
-  const [topbar, setTopbar] = useState(false);
-
-  /*
-  useEffect(() => {
-    window.addEventListener("scroll", handleScrollBar);
-    return () => window.removeEventListener("scroll", handleScrollBar);
-  }, []);
-  function handleScrollBar() {
-    window.scrollY > 47.5 ? setTopbar(true) : setTopbar(false);
+  function handleGeneralClick(e) {
+    console.log(e);
   }
-*/
   return (
     <>
       <div
@@ -50,11 +42,11 @@ export default function AppNavbar({ className, onClickItem }) {
           </li>
           <li className="navbar__listitem">
             <NavLink
-              to={"/register"}
+              to={"/admin"}
               onClick={onClickItem}
               className="navbar__listitem__link"
             >
-              Register
+              admin
             </NavLink>
           </li>
           <li className="navbar__listitem">
@@ -71,3 +63,13 @@ export default function AppNavbar({ className, onClickItem }) {
     </>
   );
 }
+
+/*
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollBar);
+    return () => window.removeEventListener("scroll", handleScrollBar);
+  }, []);
+  function handleScrollBar() {
+    window.scrollY > 47.5 ? setTopbar(true) : setTopbar(false);
+  }
+*/

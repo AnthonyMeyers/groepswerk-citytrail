@@ -60,3 +60,11 @@
     }
   }
 }
+
+@media screen and (min-width: 600px) {
+  .team {
+    &__article {
+      flex-direction: row;
+    }
+  }
+}

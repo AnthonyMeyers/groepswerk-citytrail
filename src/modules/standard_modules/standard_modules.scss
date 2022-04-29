@@ -16,7 +16,6 @@
     font-weight: 800;
   }
   &__mobile {
-    display: block;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,18 +39,10 @@
 //Navbar
 .scroll-container {
   background-color: black;
-  z-index: 1;
 }
 
 .hidden {
   display: none;
-}
-
-.topbar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
 }
 
 .navbar {
