@@ -1,4 +1,5 @@
 export default function Appteam() {
+  function handleTogglemodalClick() {}
   return (
     <>
       <section class="team">
@@ -7,7 +8,7 @@ export default function Appteam() {
           <div class="team__article__imgholder">
             <img
               class="team__article__imgholder__img"
-              src="./src/images/gyssens.jpg"
+              src="../src/images/gyssens.jpg"
               alt="Stijn Gyssens"
             />
             <span class="team__article__imgholder__name">Stijn Gyssens</span>
@@ -16,7 +17,7 @@ export default function Appteam() {
             <h3 class="team__article__description__job">
               Back end development
             </h3>
-            <p class="team__article__description__text">testing</p>
+            <p class="team__article__description__text">Reenactor actor</p>
           </div>
         </article>
         <article class="team__article">
@@ -24,7 +25,7 @@ export default function Appteam() {
             <img
               class="team__article__imgholder__img"
               alt="Anthony Meyers"
-              src="./src/images/anthony.jpg"
+              src="../src/images/anthony.jpg"
             />
             <span class="team__article__imgholder__name">Anthony Meyers</span>
           </div>

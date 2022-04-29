@@ -3,16 +3,19 @@
 @use "./base/variables" as *;
 @use "./base/fonts" as *;
 @use "./base/mixins" as *;
+@use "./base/icons.scss";
+@use "../modules/page_modules/page_modules"; //base modules
+@use "../modules/standard_modules/standard_modules"; //header & footer
 
 //GLOBALS
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: whitesmoke;
 }
 .container {
   max-width: 1200px;
-  padding: 20px;
+  padding: 30px 20px;
+  margin: auto;
 }
 
 p {
@@ -29,151 +32,4 @@ h2 {
 
 h3 {
   color: #50808e;
-}
-
-//Page header
-.header {
-  background-image: url("./src/images/old_ruins.jpg");
-  height: 50px;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  &__title {
-    color: white;
-    font-size: 20px;
-    font-weight: 800;
-    margin-left: 20px;
-  }
-}
-
-//Navbar
-
-.scroll-container {
-  background-color: black;
-  z-index: 1;
-}
-
-.topbar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
-.navbar {
-  display: flex;
-  gap: 20px;
-  padding: 10px 17px;
-  &__listitem {
-    padding: 5px 7px;
-    &__link {
-      display: block;
-      font-size: 12px;
-      color: white;
-      text-decoration: none;
-      padding: 5px;
-      text-align: center;
-      text-transform: uppercase;
-      &:hover {
-        background-color: gray;
-        border-radius: 5px;
-        transition-duration: 1s;
-      }
-    }
-  }
-}
-
-.home {
-  &__article {
-    &__textblock {
-      line-height: 20px;
-      margin: 20px 0;
-    }
-  }
-}
-
-.team {
-  &__article {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    &__imgholder {
-      position: relative;
-      width: 300px;
-      border-radius: 15px;
-      overflow: hidden;
-      -webkit-filter: grayscale(100%);
-      filter: grayscale(100%);
-      &:hover {
-        transition: 2s;
-        filter: grayscale(0);
-      }
-      &__img {
-        object-fit: contain;
-        display: block;
-        aspect-ratio: 1/1;
-        width: 100%;
-        height: auto;
-      }
-      &__name {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        padding: 3px;
-        font-size: 12px;
-        font-style: italic;
-        font-weight: light;
-        background-color: white;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-      }
-    }
-    &__description {
-      &__job {
-        font-size: 18px;
-        margin-bottom: 20px;
-      }
-      &__text {
-      }
-    }
-  }
-}
-
-.footer {
-  background-color: #69a297;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &__text {
-    font-size: 10px;
-    &__symbol {
-      font-size: 8px;
-    }
-  }
-}
-
-@media only screen and (min-width: 700px) {
-  .team {
-    &__article {
-      flex-direction: row;
-    }
-  }
-
-  .navbar {
-    gap: 30px;
-    &__listitem {
-      &__link {
-        font-size: 18px;
-      }
-    }
-  }
 }
