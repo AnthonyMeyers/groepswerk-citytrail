@@ -6,6 +6,7 @@
 @use "./base/icons.scss";
 @use "../modules/page_modules/page_modules"; //base modules
 @use "../modules/standard_modules/standard_modules"; //header & footer
+@use "../modules/page_modules/subcomp_zoek/card.scss";
 
 //GLOBALS
 body {
@@ -28,6 +29,7 @@ h2 {
   font-weight: 800;
   font-family: Arial, Helvetica, sans-serif;
   border-bottom: 2px solid #50808e;
+  margin-bottom: 20px;
 }
 
 h3 {

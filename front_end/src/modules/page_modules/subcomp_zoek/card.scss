@@ -1,0 +1,39 @@
+.card {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
+  &__imgholder {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 10px 10px 5px #ccc;
+    -moz-box-shadow: 10px 10px 5px #ccc;
+    -webkit-box-shadow: 10px 10px 5px #ccc;
+    -khtml-box-shadow: 10px 10px 5px #ccc;
+    &__img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    &__flag {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 75px;
+      height: 75px;
+      padding: 5px;
+      border-radius: 50px;
+    }
+  }
+  &__text {
+    text-align: center;
+    &__title {
+    }
+    &__description {
+    }
+  }
+}
