@@ -1,4 +1,10 @@
 import getData from "../hooks/api_calls";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
 
 import Card from "./subcomp_zoek/Card";
 
@@ -16,11 +22,11 @@ export default function AppZoek() {
             {countries.length > 0 &&
               countries.map((country, i) => {
                 return (
-                  <Card
-                    key={i}
-                    className="search__list__item"
-                    country={country}
-                  />
+                  <li key={i}>
+                    <NavLink to={`/landen/detail/${country.lan_id}`}>
+                      <Card className="search__list__item" country={country} />
+                    </NavLink>
+                  </li>
                 );
               })}
           </ul>
