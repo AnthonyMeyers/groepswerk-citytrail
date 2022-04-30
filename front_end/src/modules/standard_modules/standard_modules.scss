@@ -1,0 +1,126 @@
+//Page header
+.header {
+  background-image: url("./src/images/old_ruins.jpg");
+  height: 50px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 20px;
+  justify-content: space-between;
+  &__title {
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  &__mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 100%;
+    font-size: 20px;
+
+    &:after {
+      content: "\e9bd";
+      font-family: "icomoon";
+      color: white;
+      transition: 2s;
+    }
+    &-active:after {
+      transition: 2s;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+//Navbar
+.scroll-container {
+  background-color: black;
+}
+
+.hidden {
+  display: none;
+}
+
+.navbar {
+  &__listitem {
+    &__link {
+      display: block;
+      font-size: 15px;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      text-align: left;
+      text-transform: uppercase;
+      &:hover {
+        background-color: gray;
+        border-radius: 5px;
+        transition-duration: 1s;
+      }
+    }
+  }
+}
+
+//page footer
+.footer {
+  background-color: #69a297;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__text {
+    font-size: 10px;
+    &__symbol {
+      font-size: 8px;
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #navbar {
+    display: block;
+  }
+  .navbar {
+    gap: 30px;
+    &__listitem {
+      &__link {
+        font-size: 18px;
+      }
+    }
+  }
+  .navbar {
+    display: flex;
+    gap: 20px;
+    padding: 10px 17px;
+    &__listitem {
+      padding: 5px 7px;
+      &__link {
+        display: block;
+        font-size: 12px;
+        color: white;
+        text-decoration: none;
+        padding: 5px;
+        text-align: center;
+        text-transform: uppercase;
+        &:hover {
+          background-color: gray;
+          border-radius: 5px;
+          transition-duration: 1s;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .header__mobile {
+    display: none;
+  }
+}
