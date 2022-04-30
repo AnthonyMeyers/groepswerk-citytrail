@@ -11,9 +11,10 @@
   &__list {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
     &__item {
+      flex: 1 1 250px;
     }
   }
 }
@@ -67,6 +68,13 @@
 }
 
 @media screen and (min-width: 600px) {
+  .search {
+    &__list {
+      &__item {
+      }
+    }
+  }
+
   .team {
     &__article {
       flex-direction: row;

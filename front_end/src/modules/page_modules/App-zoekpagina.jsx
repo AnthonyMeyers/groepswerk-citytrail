@@ -22,9 +22,9 @@ export default function AppZoek() {
             {countries.length > 0 &&
               countries.map((country, i) => {
                 return (
-                  <li key={i}>
+                  <li className="search__list__item" key={i}>
                     <NavLink to={`/landen/detail/${country.lan_id}`}>
-                      <Card className="search__list__item" country={country} />
+                      <Card country={country} />
                     </NavLink>
                   </li>
                 );

@@ -27,10 +27,10 @@
       content: "\e9bd";
       font-family: "icomoon";
       color: white;
-      transition: 2s;
+      transition: 0.5s;
     }
     &-active:after {
-      transition: 2s;
+      transition: 0.5s;
       transform: rotate(90deg);
     }
   }
