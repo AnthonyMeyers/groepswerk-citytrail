@@ -20,6 +20,3 @@ export default function App() {
     </>
   );
 }
-/*<AppNavbar></AppNavbar>
-
-<AppHome></AppHome>*/

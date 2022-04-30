@@ -15,8 +15,13 @@ export default function AppZoek() {
           <ul className="search__list">
             {countries.length > 0 &&
               countries.map((country, i) => {
-                console.log(country, i);
-                return <Card key={i} className="search__list__item" />;
+                return (
+                  <Card
+                    key={i}
+                    className="search__list__item"
+                    country={country}
+                  />
+                );
               })}
           </ul>
         )}

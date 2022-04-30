@@ -1,4 +1,7 @@
-export default function CountryCard() {
+export default function CountryCard({
+  country: { lan_id, lan_naam, lan_vlag },
+}) {
+  console.log(lan_naam);
   return (
     <>
       <div className="card">
@@ -15,8 +18,7 @@ export default function CountryCard() {
           />
         </div>
         <div className="card__text">
-          <h3 className="card__text__title">Amerika</h3>
-          <p className="card__text__description">meer uitleg</p>
+          <h3 className="card__text__title">{lan_naam}</h3>
         </div>
       </div>
     </>
