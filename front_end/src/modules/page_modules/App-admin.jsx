@@ -1,7 +1,7 @@
 export default function AppAdmin() {
   return (
     <>
-      <p>register</p>
+      <p>admin</p>
     </>
   );
 }

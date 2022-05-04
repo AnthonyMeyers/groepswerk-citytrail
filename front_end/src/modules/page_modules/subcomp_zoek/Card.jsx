@@ -1,7 +1,4 @@
-export default function CountryCard({
-  country: { lan_id, lan_naam, lan_vlag },
-}) {
-  console.log(lan_naam);
+export default function CountryCard({ country: { lanId, lanNaam, lanVlag } }) {
   return (
     <>
       <div className="card">
@@ -18,7 +15,7 @@ export default function CountryCard({
           />
         </div>
         <div className="card__text">
-          <h3 className="card__text__title">{lan_naam}</h3>
+          <h3 className="card__text__title">{lanNaam}</h3>
         </div>
       </div>
     </>

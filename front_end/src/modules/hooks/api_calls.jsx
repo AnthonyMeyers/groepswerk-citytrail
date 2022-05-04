@@ -4,24 +4,25 @@ import axios from "axios";
 export default function getData(path) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [countries, setCountries] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
+    console.log("ok");
     (async () => {
       try {
         setLoading(true);
         setError(false);
-        const {
-          data: { body: countrylist },
-        } = await axios(path);
+        setData([]);
+        const { data } = await axios(path);
         setLoading(false);
-        setCountries(countrylist);
+        setData(data);
       } catch (error) {
         setLoading(false);
         setError(true);
+        setData([]);
       }
     })();
   }, []);
 
-  return [countries, error, loading];
+  return [data, error, loading];
 }

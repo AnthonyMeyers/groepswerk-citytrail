@@ -2,38 +2,42 @@ export default function Appteam() {
   function handleTogglemodalClick() {}
   return (
     <>
-      <section class="team">
+      <section className="team">
         <h2 className="team__title">Team</h2>
-        <article class="team__article">
-          <div class="team__article__imgholder">
+        <article className="team__article">
+          <div className="team__article__imgholder">
             <img
-              class="team__article__imgholder__img"
+              className="team__article__imgholder__img"
               src="../src/images/gyssens.jpg"
               alt="Stijn Gyssens"
             />
-            <span class="team__article__imgholder__name">Stijn Gyssens</span>
+            <span className="team__article__imgholder__name">
+              Stijn Gyssens
+            </span>
           </div>
-          <div class="team__article__description">
-            <h3 class="team__article__description__job">
+          <div className="team__article__description">
+            <h3 className="team__article__description__job">
               Back end development
             </h3>
-            <p class="team__article__description__text">Reenactor actor</p>
+            <p className="team__article__description__text">Reenactor actor</p>
           </div>
         </article>
-        <article class="team__article">
-          <div class="team__article__imgholder">
+        <article className="team__article">
+          <div className="team__article__imgholder">
             <img
-              class="team__article__imgholder__img"
+              className="team__article__imgholder__img"
               alt="Anthony Meyers"
               src="../src/images/anthony.jpg"
             />
-            <span class="team__article__imgholder__name">Anthony Meyers</span>
+            <span className="team__article__imgholder__name">
+              Anthony Meyers
+            </span>
           </div>
-          <div class="team__article__description">
-            <h3 class="team__article__description__job">
+          <div className="team__article__description">
+            <h3 className="team__article__description__job">
               Front end development
             </h3>
-            <p class="team__article__description__text">testing</p>
+            <p className="team__article__description__text">testing</p>
           </div>
         </article>
       </section>
