@@ -10,7 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="gw2_land_taal", indexes={@ORM\Index(name="gw2_land_taal_gw2_taal_tal_id_fk", columns={"tal_lan_id"}), @ORM\Index(name="gw2_land_taal_gw2_land_lan_id_fk", columns={"lan_tal_id"})})
  * @ORM\Entity
- * @ApiResource()
+ * @ApiResource(
+ * shortName="land-taal"
+ * )
  */
 class Gw2LandTaal
 {

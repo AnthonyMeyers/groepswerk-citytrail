@@ -10,7 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="gw2_land", uniqueConstraints={@ORM\UniqueConstraint(name="land_lan_id_uindex", columns={"lan_id"})})
  * @ORM\Entity
- * @ApiResource()
+ * @ApiResource(
+ * shortName="landen"
+ * )
  */
 class Gw2Land
 {

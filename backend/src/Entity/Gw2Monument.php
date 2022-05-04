@@ -10,7 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="gw2_monument", uniqueConstraints={@ORM\UniqueConstraint(name="monument_mnm_id_uindex", columns={"mnm_id"})}, indexes={@ORM\Index(name="monument_stad_std_id_fk", columns={"mnm_std_id"})})
  * @ORM\Entity
- * @ApiResource()
+ * @ApiResource(
+ * shortName="monumenten"
+ * )
  */
 class Gw2Monument
 {
