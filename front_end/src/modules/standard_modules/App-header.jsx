@@ -17,7 +17,7 @@ export default function AppHeader() {
         <h1 className="header__title">Citytrail</h1>
         <a
           onClick={handleMobileClick}
-          class={
+          className={
             menu ? "header__mobile header__mobile-active" : "header__mobile "
           }
         ></a>

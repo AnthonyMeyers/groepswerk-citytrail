@@ -1,21 +1,27 @@
-.team {
-  &__article {
-    flex-direction: row;
-  }
-}
-
 .home {
   &__article {
     &__textblock {
       line-height: 20px;
-      margin: 20px 0;
+      margin: 0px 0 20px;
+    }
+  }
+}
+
+.search {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    &__item {
+      flex: 1 1 300px;
     }
   }
 }
 
 .team {
   &__article {
-    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -62,6 +68,13 @@
 }
 
 @media screen and (min-width: 600px) {
+  .search {
+    &__list {
+      &__item {
+      }
+    }
+  }
+
   .team {
     &__article {
       flex-direction: row;

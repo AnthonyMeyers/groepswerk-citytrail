@@ -5,13 +5,15 @@ import AppAdmin from "./page_modules/App-admin";
 import AppTeam from "./page_modules/App-team";
 import AppZoek from "./page_modules/App-zoekpagina";
 import AppNavbar from "./standard_modules/App-navbar";
+import AppDetail from "./page_modules/App-details";
 
 export default function Routing() {
   return (
     <>
       <Routes>
         <Route path="/admin" element={<AppAdmin />} />
-        <Route path="/zoek" element={<AppZoek />} />
+        <Route path="/landen" element={<AppZoek />} />
+        <Route exact path="/landen/detail/:id" element={<AppDetail />} />
         <Route path="/home" element={<AppHome />} />
         <Route path="/team" element={<AppTeam />} />
         <Route exact path="/" element={<AppHome />} />

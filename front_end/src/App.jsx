@@ -12,7 +12,7 @@ export default function App() {
   return (
     <>
       <AppHeader></AppHeader>
-      <div class="container">
+      <div className="container">
         <Routing></Routing>
       </div>
 
@@ -20,6 +20,3 @@ export default function App() {
     </>
   );
 }
-/*<AppNavbar></AppNavbar>
-
-<AppHome></AppHome>*/
