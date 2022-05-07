@@ -6,17 +6,22 @@ import AppTeam from "./page_modules/App-team";
 import AppZoek from "./page_modules/App-zoekpagina";
 import AppNavbar from "./standard_modules/App-navbar";
 import AppDetail from "./page_modules/App-details";
+import AppStadDetail from "./page_modules/App-StadDetail";
+import AppNotFound from "./page_modules/App-NotFound";
 
 export default function Routing() {
   return (
     <>
       <Routes>
-        <Route path="/admin" element={<AppAdmin />} />
-        <Route path="/landen" element={<AppZoek />} />
-        <Route exact path="/landen/detail/:id" element={<AppDetail />} />
-        <Route path="/home" element={<AppHome />} />
-        <Route path="/team" element={<AppTeam />} />
+        <Route exact path="/admin" element={<AppAdmin />} />
+        <Route exact path="/landen" element={<AppZoek />} />
+        <Route exact path="/land/:id" element={<AppDetail />} />
+        <Route exact path="/land/:id/stad/:stad" element={<AppStadDetail />} />
+
+        <Route exact path="/home" element={<AppHome />} />
+        <Route exact path="/team" element={<AppTeam />} />
         <Route exact path="/" element={<AppHome />} />
+        <Route path="*" element={<AppNotFound />} />
       </Routes>
     </>
   );
