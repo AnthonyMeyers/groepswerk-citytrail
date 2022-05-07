@@ -8,6 +8,7 @@ import {
 import Card from "./subcomp_zoek/Card";
 import { useEffect, useContext } from "react";
 import { AdminContext } from "../../Provider";
+import { Status } from "../hooks/main_functions";
 
 export default function AppZoek() {
   const [countries, error, loading] = getDataRecords(
@@ -26,8 +27,7 @@ export default function AppZoek() {
             <button className="admin__button">Land toevoegen</button>
           </div>
         )}
-        {error && <h3 className="error">Geen data gevonden</h3>}
-        {loading && <h3 className="loading">Landen aan het laden</h3>}
+        <Status error={error} loading={loading} />
         {countries.length > 0 && (
           <ul className="search__list">
             {countries.length > 0 &&

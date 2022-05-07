@@ -16,7 +16,11 @@ export default function Routing() {
         <Route exact path="/admin" element={<AppAdmin />} />
         <Route exact path="/landen" element={<AppZoek />} />
         <Route exact path="/land/:id" element={<AppDetail />} />
-        <Route exact path="/land/:id/stad/:stad" element={<AppStadDetail />} />
+        <Route
+          exact
+          path="/land/:id/stad/:stadId"
+          element={<AppStadDetail />}
+        />
 
         <Route exact path="/home" element={<AppHome />} />
         <Route exact path="/team" element={<AppTeam />} />

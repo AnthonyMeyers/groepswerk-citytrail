@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getData, getDataRecords } from "../hooks/api_calls";
 import { NavLink } from "react-router-dom";
 import CountryCard from "./subcomp_zoek/Card";
-
+import { Status } from "../hooks/main_functions";
 const AppNotFound = () => {
   const [country, setCountry] = useState(null);
 
@@ -20,14 +20,7 @@ const AppNotFound = () => {
           <h3>Beste bezoeker</h3>
           <p>Het lijkt er op dat U op een verkeerde pagina bent beland.</p>
           <p>Mogen wij U eventueel een land voorstellen?</p>
-          {loading && (
-            <p className="loading">Een momentje, wij laden een land is</p>
-          )}
-          {error && (
-            <p className="error">
-              Sorry momenteel is deze service buiten gebruik
-            </p>
-          )}
+          <Status error={error} loading={loading} />
           {country && (
             <NavLink to={`/land/${country.lan_id}`}>
               <CountryCard country={country} className="shrink" />

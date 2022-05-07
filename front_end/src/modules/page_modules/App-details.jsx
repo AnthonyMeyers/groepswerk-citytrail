@@ -1,4 +1,5 @@
-import { useEffect, useState, useLayoutEffect, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Status } from "../hooks/main_functions";
 import {
   BrowserRouter as Router,
   Route,
@@ -21,36 +22,7 @@ const AppDetail = () => {
   const [steden, errorSteden, loadingSteden] = getData(
     `http://localhost:8080/api.php/records/gw2_stad/1`
   );
-  console.log(steden);
-  /*
-  useLayoutEffect(() => {
-    if (
-      steden.filter(
-        ({ stdLan }) => stdLan.substr(stdLan.lastIndexOf("/") + 1) === id
-      ).length > 0
-    ) {
-      mapboxgl.accessToken =
-        "pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw";
-      const map = new mapboxgl.Map({
-        container: "map", // container ID
-        style: "mapbox://styles/mapbox/streets-v11", // style URL
-        center: [4.34878, 50.85045], // starting position [lng, lat]
-        zoom: 9, // starting zoom
-      });
-      map.on("load", () => {
-        map.addLayer({
-          id: "terrain-data",
-          type: "line",
-          source: {
-            type: "vector",
-            url: "mapbox://mapbox.mapbox-terrain-v2",
-          },
-          "source-layer": "contour",
-        });
-      });
-    }
-  }, [steden]);
-*/
+
   return (
     <section className="detail">
       <h2 className="search__title">
@@ -63,10 +35,7 @@ const AppDetail = () => {
           <button className="admin__button">Stad toevoegen</button>
         </div>
       )}
-      {error && (
-        <h3 className="error">Woops foutje, de data is onbereikbaar</h3>
-      )}
-      {loading && <h3 className="loading">Land aan het laden</h3>}
+      <Status error={error} loading={loading} />
       {errorSteden && <h3 className="error">Geen steden gevonden</h3>}
       {loadingSteden && <h3 className="loading">Zoekt steden</h3>}
       {[steden].length > 0 &&
@@ -77,9 +46,9 @@ const AppDetail = () => {
             </NavLink>
           </div>
         ))}
-      {[steden].length > 0 && <div id="map"></div>}
+
       <NavLink to={`/landen`}>
-        <button class="detail__button">Go back</button>
+        <button class="detail__button">Ga terug</button>
       </NavLink>
     </section>
   );
