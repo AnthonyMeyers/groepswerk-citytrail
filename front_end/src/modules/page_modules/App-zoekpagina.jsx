@@ -1,23 +1,15 @@
-import { getDataRecords } from "../hooks/api_calls";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  NavLink,
-} from "react-router-dom";
+import { BrowserRouter as Router, NavLink } from "react-router-dom";
 import Card from "./subcomp_zoek/Card";
-import { useEffect, useContext } from "react";
-import { AdminContext } from "../../Provider";
+
+import { useGetAllLandenQuery } from "../../data/landenApi";
 import { Status } from "../hooks/main_functions";
+import { useSelector } from "react-redux";
 
 export default function AppZoek() {
-  const [countries, error, loading] = getDataRecords(
-    `http://localhost:8080/api.php/records/gw2_land`
-  );
+  const { data: countryData, isError, isLoading } = useGetAllLandenQuery();
 
-  const { admin } = useContext(AdminContext);
+  const { admin } = useSelector((state) => state.adminState);
 
-  useEffect(() => {}, [countries]);
   return (
     <>
       <section className="search">
@@ -27,11 +19,11 @@ export default function AppZoek() {
             <button className="admin__button">Land toevoegen</button>
           </div>
         )}
-        <Status error={error} loading={loading} />
-        {countries.length > 0 && (
+        <Status error={isError} loading={isLoading} />
+        {countryData && countryData.records.length > 0 && (
           <ul className="search__list">
-            {countries.length > 0 &&
-              countries.map((country, i) => {
+            {countryData.records.length > 0 &&
+              countryData.records.map((country, i) => {
                 return (
                   <li className="search__list__item" key={country.lan_id}>
                     <NavLink to={`/land/${country.lan_id}`}>

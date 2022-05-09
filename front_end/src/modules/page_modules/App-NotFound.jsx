@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { getData, getDataRecords } from "../hooks/api_calls";
 import { NavLink } from "react-router-dom";
 import CountryCard from "./subcomp_zoek/Card";
 import { Status } from "../hooks/main_functions";
+import { useGetAllLandenQuery } from "../../data/landenApi";
+
 const AppNotFound = () => {
   const [country, setCountry] = useState(null);
 
-  const [countries, error, loading] = getDataRecords(
-    "http://localhost:8080/api.php/records/gw2_land"
-  );
+  const {
+    data: countries,
+    isError: error,
+    isLoading: loading,
+  } = useGetAllLandenQuery();
+
   useEffect(() => {
-    setCountry(countries[parseInt(Math.random() * countries.length, 10)]);
+    if (countries) {
+      setCountry(
+        countries.records[
+          parseInt(Math.random() * countries.records.length, 10)
+        ]
+      );
+    }
   }, [countries]);
   return (
     <>

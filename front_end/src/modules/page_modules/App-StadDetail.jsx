@@ -1,14 +1,18 @@
-import { useContext, useLayoutEffect, useState, useEffect } from "react";
-import { AdminContext } from "../../Provider";
+import { useLayoutEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
-import { getData, getDataRecords } from "../hooks/api_calls";
 import { Status } from "../hooks/main_functions";
+import { useGetOneStadQuery } from "../../data/landenApi";
+import { useSelector } from "react-redux";
+
 const AppStadDetail = () => {
-  const { admin } = useContext(AdminContext);
-  const { id, stadId } = useParams();
-  const [stad, error, loading] = getData(
-    "http://localhost:8080/api.php/records/gw2_stad/" + stadId
-  );
+  const { id: landId, stadId } = useParams();
+  const { admin } = useSelector((state) => state.adminState);
+
+  const {
+    data: stad,
+    isLoading: loading,
+    isError: error,
+  } = useGetOneStadQuery(stadId);
 
   useLayoutEffect(() => {
     if (stad && stad.std_id > 0) {
@@ -50,7 +54,7 @@ const AppStadDetail = () => {
           </div>
         )}
         {stad && <div id="map"></div>}
-        <NavLink to={`/land/${id}`}>
+        <NavLink to={`/land/${landId}`}>
           <button>Ga terug</button>
         </NavLink>
       </section>

@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { AdminContext } from "../../Provider";
+import { changeState } from "../../data/admin";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function AppAdmin() {
-  const { admin, setAdmin } = useContext(AdminContext);
-
+  const { admin } = useSelector((state) => state.adminState);
+  const dispatch = useDispatch();
   return (
     <>
       <p>set admin</p>
-      <button onClick={() => setAdmin(!admin)}>active admin </button>
+      <button onClick={() => dispatch(changeState())}>
+        activate admin {admin ? "on" : "off"}
+      </button>
     </>
   );
 }
