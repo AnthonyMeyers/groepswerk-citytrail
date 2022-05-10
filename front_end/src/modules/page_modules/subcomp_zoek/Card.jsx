@@ -1,7 +1,10 @@
-export default function CountryCard({ country: { lanId, lanNaam, lanVlag } }) {
+export default function CountryCard({
+  country: { lan_id, lan_naam, lan_vlag },
+  className,
+}) {
   return (
     <>
-      <div className="card">
+      <div className={className === "shrink" ? "card shrink" : "card"}>
         <div className="card__imgholder">
           <img
             className="card__imgholder__img"
@@ -15,7 +18,7 @@ export default function CountryCard({ country: { lanId, lanNaam, lanVlag } }) {
           />
         </div>
         <div className="card__text">
-          <h3 className="card__text__title">{lanNaam}</h3>
+          <h3 className="card__text__title">{lan_naam}</h3>
         </div>
       </div>
     </>

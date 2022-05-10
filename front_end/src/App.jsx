@@ -5,16 +5,16 @@ import AppHeader from "./modules/standard_modules/App-header";
 import AppNavbar from "./modules/standard_modules/App-navbar";
 import AppFooter from "./modules/standard_modules/App-footer";
 import AppHome from "./modules/page_modules/App-home";
-
 import Routing from "./modules/router";
+/*import { useGetAllLandenQuery } from "./data/landenApi";*/
 
 export default function App() {
   return (
     <>
       <AppHeader></AppHeader>
-      <div className="container">
+      <main className="container">
         <Routing></Routing>
-      </div>
+      </main>
 
       <AppFooter></AppFooter>
     </>
