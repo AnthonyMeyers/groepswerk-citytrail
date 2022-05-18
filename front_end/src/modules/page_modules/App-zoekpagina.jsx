@@ -1,37 +1,53 @@
-import { BrowserRouter as Router, NavLink } from "react-router-dom";
 import Card from "./subcomp_zoek/Card";
-
-import { useGetAllLandenQuery } from "../../data/landenApi";
+import { useState, useReducer } from "react";
+import {
+  useGetAllLandenQuery,
+  useAddOneLandMutation,
+} from "../../data/landenApi";
 import { Status } from "../hooks/main_functions";
 import { useSelector } from "react-redux";
 
 export default function AppZoek() {
   const { data: countryData, isError, isLoading } = useGetAllLandenQuery();
+  const [postLand] = useAddOneLandMutation();
+  const [addLand, setAddland] = useState("");
 
   const { admin } = useSelector((state) => state.adminState);
 
+  function handleLandSubmit(e) {
+    e.preventDefault();
+    postLand(addLand);
+    setAddland("");
+  }
   return (
     <>
       <section className="search">
         <h2 className="search__title">Landen</h2>
         {admin && (
           <div className="admin">
-            <button className="admin__button">Land toevoegen</button>
+            <form className="admin__form" onSubmit={handleLandSubmit}>
+              <input
+                type="text"
+                value={addLand}
+                className="admin__form__input"
+                onInput={(e) => setAddland(e.target.value)}
+              />
+              <button type="submit" className="admin__form__button">
+                Land toevoegen
+              </button>
+            </form>
           </div>
         )}
         <Status error={isError} loading={isLoading} />
-        {countryData && countryData.records.length > 0 && (
+        {countryData && countryData.length > 0 && (
           <ul className="search__list">
-            {countryData.records.length > 0 &&
-              countryData.records.map((country, i) => {
-                return (
-                  <li className="search__list__item" key={country.lan_id}>
-                    <NavLink to={`/land/${country.lan_id}`}>
-                      <Card country={country} />
-                    </NavLink>
-                  </li>
-                );
-              })}
+            {countryData.map(({ id, name, flag }) => {
+              return (
+                <li className="search__list__item" key={id}>
+                  <Card country={name} id={id} />
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>

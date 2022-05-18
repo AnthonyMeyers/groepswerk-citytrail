@@ -20,6 +20,53 @@
   }
 }
 
+.detail {
+  &__city {
+    position: relative;
+    &__link {
+      &__title {
+        display: inline;
+        font-size: 20px;
+      }
+    }
+    &__remove {
+      position: absolute;
+      left: 200px;
+      top: 0;
+      &:after {
+        content: "\e9ad";
+        font-size: 20px;
+        font-family: "icomoon";
+        color: lightseagreen;
+      }
+    }
+  }
+}
+.staddetail {
+  &__img {
+    display: block;
+    width: 200px;
+    height: 200px;
+  }
+  &__list {
+    &__item {
+      margin-top: 10px;
+      position: relative;
+      &__remove {
+        position: absolute;
+        left: 200px;
+        top: 0;
+        &:after {
+          content: "\e9ad";
+          font-size: 20px;
+          font-family: "icomoon";
+          color: lightseagreen;
+        }
+      }
+    }
+  }
+}
+
 .team {
   &__article {
     margin-bottom: 20px;

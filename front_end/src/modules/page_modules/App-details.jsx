@@ -2,55 +2,111 @@ import { Status } from "../hooks/main_functions";
 import { NavLink, useParams } from "react-router-dom";
 import {
   useGetOneLandQuery,
-  useGetStedenLandQuery,
+  useRemoveOneCityMutation,
+  useAddOneStadMutation,
+  useUpdateOneLandMutation,
 } from "../../data/landenApi";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const AppDetail = () => {
   const { id } = useParams();
-
+  const [addCity, setAddCity] = useState("");
+  const [editCountry, setEditCountry] = useState("");
+  const [editFlag, setEditFlag] = useState("");
   const { admin } = useSelector((state) => state.adminState);
-
+  const [removeCity] = useRemoveOneCityMutation();
+  const [addOneCity] = useAddOneStadMutation();
+  const [updateLand] = useUpdateOneLandMutation();
   const {
     data: land,
     isError: errorLand,
     isLoading: loadingLand,
+    isSuccess,
   } = useGetOneLandQuery(id);
 
-  const {
-    data: steden,
-    isError: errorSteden,
-    IsLoading: loadingSteden,
-  } = useGetStedenLandQuery(id);
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(land);
+      setEditCountry(land.name);
+      setEditFlag(land.flag);
+    }
+  }, [isSuccess]);
+
+  function handleCitySubmit(e) {
+    e.preventDefault(e);
+    addOneCity({ countryId: id, name: addCity });
+    setAddCity("");
+  }
+
+  function handleCountrySubmit(e) {
+    e.preventDefault();
+    updateLand({ id, name: editCountry, flag: editFlag });
+  }
 
   return (
     <section className="detail">
-      <h2 className="search__title">
-        Detailpagina {land && land.lan_naam + ` (${land.lan_id})`}
-      </h2>
+      <h2 className="detail__title">Detailpagina {land && land.name}</h2>
       {admin && (
-        <div className="admin">
-          <button className="admin__button">Land bewerken</button>
-          <button className="admin__button">Land verwijderen</button>
-          <button className="admin__button">Stad toevoegen</button>
-        </div>
+        <>
+          <form onSubmit={handleCountrySubmit}>
+            <label>
+              Naam Land
+              <input
+                type="text"
+                value={editCountry}
+                onInput={(e) => setEditCountry(e.target.value)}
+              />
+            </label>
+            <label>
+              Link vlag
+              <input
+                type="text"
+                value={editFlag}
+                onInput={(e) => setEditFlag(e.target.value)}
+              />
+            </label>
+            <button className="admin__button">Land bewerken</button>
+          </form>
+          <div className="admin">
+            <form onSubmit={handleCitySubmit}>
+              <input
+                type="text"
+                value={addCity}
+                onInput={(e) => setAddCity(e.target.value)}
+              />
+              <button className="admin__button">Stad toevoegen</button>
+            </form>
+          </div>
+        </>
       )}
       <Status error={errorLand} loading={loadingLand} />
-      {errorSteden && <h3 className="error">Geen steden gevonden</h3>}
-      {loadingSteden && <h3 className="loading">Zoekt steden</h3>}
+      {isSuccess && land.flag && <img src={land.flag} alt={land.name} />}
       {land &&
-        steden &&
-        steden.length > 0 &&
-        steden
-          .filter((value) => value != null)
-          .map(({ std_naam, std_id }, i) => (
-            <div key={std_id}>
-              <NavLink to={`/land/${land.lan_id}/stad/${std_id}`}>
-                <h3>{std_naam}</h3>
-              </NavLink>
-            </div>
+        land.cities.length > 0 &&
+        land.cities.map(({ id, name }, i) => (
+          <div key={id} className="detail__city">
+            <NavLink
+              to={`/land/${land.id}/stad/${id}`}
+              className="detail__city__link"
+            >
+              <h3 className="detail__city__link__title">{name}</h3>
+            </NavLink>
+            {admin && (
+              <a
+                class="detail__city__remove"
+                onClick={() => removeCity(id)}
+              ></a>
+            )}
+          </div>
+        ))}
+      {land && land.languages.length > 0 && (
+        <ul>
+          {land.languages.map(({ id, name }) => (
+            <li key={id}>{name}</li>
           ))}
-
+        </ul>
+      )}
       <NavLink to={`/landen`}>
         <button className="detail__button">Ga terug</button>
       </NavLink>
