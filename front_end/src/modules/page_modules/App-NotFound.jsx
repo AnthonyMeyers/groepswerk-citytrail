@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import CountryCard from "./subcomp_zoek/Card";
 import { Status } from "../hooks/main_functions";
 import { useGetAllLandenQuery } from "../../data/landenApi";
@@ -14,12 +13,9 @@ const AppNotFound = () => {
   } = useGetAllLandenQuery();
 
   useEffect(() => {
-    if (countries) {
-      setCountry(
-        countries.records[
-          parseInt(Math.random() * countries.records.length, 10)
-        ]
-      );
+    if (countries && countries.length > 0) {
+      setCountry(countries[Math.floor(Math.random() * countries.length)]);
+      console.log(country);
     }
   }, [countries]);
   return (
@@ -31,10 +27,12 @@ const AppNotFound = () => {
           <p>Het lijkt er op dat U op een verkeerde pagina bent beland.</p>
           <p>Mogen wij U eventueel een land voorstellen?</p>
           <Status error={error} loading={loading} />
-          {country && (
-            <NavLink to={`/land/${country.lan_id}`}>
-              <CountryCard country={country} className="shrink" />
-            </NavLink>
+          {country && country.id && (
+            <CountryCard
+              country={country.name}
+              id={country.id}
+              className="shrink"
+            />
           )}
         </article>
       </section>

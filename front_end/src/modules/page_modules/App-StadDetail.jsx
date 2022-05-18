@@ -1,23 +1,64 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
+import MonumentModal from "./subcomp_zoek/MonumentModal";
 import { useParams, NavLink } from "react-router-dom";
 import { Status } from "../hooks/main_functions";
-import { useGetOneStadQuery } from "../../data/landenApi";
+import {
+  useGetOneStadQuery,
+  useAddOneMonumentMutation,
+  useRemoveOneMonumentMutation,
+  useUpdateOneCityMutation,
+} from "../../data/landenApi";
 import { useSelector } from "react-redux";
+import placeholderCity from "../../images/placeholder_city.webp";
 
 const AppStadDetail = () => {
   const { id: landId, stadId } = useParams();
   const { admin } = useSelector((state) => state.adminState);
+  const [addMonument, setAddMonument] = useState("");
+  const [addOneMonument] = useAddOneMonumentMutation();
+  const [removeOneMonument] = useRemoveOneMonumentMutation();
+  const [cityName, setCityName] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [updateCity] = useUpdateOneCityMutation();
 
   const {
     data: stad,
     isLoading: loading,
     isError: error,
+    isSuccess,
   } = useGetOneStadQuery(stadId);
 
+  function handleAddMonumentSubmit(e) {
+    e.preventDefault();
+    addOneMonument({ cityId: stadId, name: addMonument });
+  }
+
+  function handleCitySubmit(e) {
+    e.preventDefault();
+    updateCity({
+      id: stadId,
+      name: cityName,
+      latidude: latitude,
+      longitude,
+      img: photo,
+    });
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      setCityName(stad.name);
+      setLatitude(stad.latidude);
+      setLongitude(stad.longitude);
+      setPhoto(stad.img);
+    }
+  }, [isSuccess]);
+
   useLayoutEffect(() => {
-    if (stad && stad.std_id > 0) {
-      const long = parseFloat(stad.std_long);
-      const lat = parseFloat(stad.std_lat) * 1;
+    if (stad && stad.id > 0 && stad.longitude && stad.latidude) {
+      const long = parseFloat(stad.longitude) * 1;
+      const lat = parseFloat(stad.latidude) * 1;
       mapboxgl.accessToken =
         "pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw";
       const map = new mapboxgl.Map({
@@ -39,21 +80,97 @@ const AppStadDetail = () => {
       });
     }
   }, [stad]);
+
   return (
     <>
       <section className="staddetail">
         <h2 className="staddetail__title">
-          Detailpagina stad {stad && stad.std_naam}
+          Detailpagina stad {stad && stad.name}
         </h2>
         <Status error={error} loading={loading} />
         {admin && (
           <div className="admin">
-            <button className="admin__button">Stad bewerken</button>
-            <button className="admin__button">Stad verwijderen</button>
-            <button className="admin__button">Monument toevoegen</button>
+            <form onSubmit={handleCitySubmit}>
+              <label>
+                Stadnaam
+                <input
+                  type="text"
+                  value={cityName}
+                  onInput={(e) => setCityName(e.target.value)}
+                />
+              </label>
+              <label>
+                Latitude
+                <input
+                  type="text"
+                  value={longitude}
+                  onInput={(e) => setLongitude(e.target.value)}
+                />
+              </label>
+              <label>
+                Longitude
+                <input
+                  type="text"
+                  value={latitude}
+                  onInput={(e) => setLatitude(e.target.value)}
+                />
+              </label>
+              <label>
+                Url foto
+                <input
+                  type="text"
+                  value={photo}
+                  onInput={(e) => setPhoto(e.target.value)}
+                />
+              </label>
+              <button type="submit">Bewerk stad</button>
+            </form>
+
+            <form onSubmit={handleAddMonumentSubmit}>
+              <label>
+                Voeg een monument toe
+                <input
+                  type="text"
+                  value={addMonument}
+                  onInput={(e) => setAddMonument(e.target.value)}
+                />
+              </label>
+              <button className="admin__button">Monument toevoegen</button>
+            </form>
           </div>
         )}
-        {stad && <div id="map"></div>}
+        {isSuccess && stad.img && (
+          <img src={stad.img} alt={stad.name} className="staddetail__img" />
+        )}
+        {(isSuccess && !stad.img) ||
+          (stad?.img === "" && (
+            <img
+              src={placeholderCity}
+              alt="placeholder city"
+              className="staddetail__img"
+            />
+          ))}
+        {stad && stad.longitude != null && stad.latidude != null && (
+          <div id="map"></div>
+        )}
+        {stad && stad.monuments.length > 0 && (
+          <ul className="staddetail__list">
+            {stad.monuments.map(({ id, name }) => (
+              <li key={id} className="staddetail__list__item">
+                <MonumentModal key={id} monumentId={id}>
+                  {name}
+                </MonumentModal>
+                {admin && (
+                  <a
+                    className="staddetail__list__item__remove"
+                    onClick={() => removeOneMonument(id)}
+                  ></a>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+
         <NavLink to={`/land/${landId}`}>
           <button>Ga terug</button>
         </NavLink>

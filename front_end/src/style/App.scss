@@ -7,6 +7,7 @@
 @use "../modules/page_modules/page_modules"; //base modules
 @use "../modules/standard_modules/standard_modules"; //header & footer
 @use "../modules/page_modules/subcomp_zoek/card.scss";
+@use "../Modules/page_modules/subcomp_zoek/MonumentModal.scss";
 
 //GLOBALS
 body {
@@ -73,5 +74,28 @@ a {
     background-color: lightseagreen;
     box-shadow: 3px 3px black;
     cursor: pointer;
+  }
+  &__form {
+    display: flex;
+    gap: 20px;
+    &__button {
+      border-radius: 7px;
+      height: 25px;
+      font-weight: bold;
+      border: 1px solid black;
+      background-color: lightseagreen;
+      box-shadow: 3px 3px black;
+      cursor: pointer;
+    }
+    &__input {
+      border-radius: 7px;
+      height: 25px;
+      font-weight: bold;
+      border: 1px solid black;
+      background-color: lightseagreen;
+      box-shadow: 3px 3px black;
+      cursor: pointer;
+      outline: none;
+    }
   }
 }

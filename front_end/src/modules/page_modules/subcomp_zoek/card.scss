@@ -1,5 +1,6 @@
 .card {
   display: flex;
+  position: relative;
   justify-content: flex-start;
   border: 1px solid black;
   border-radius: 20px;
@@ -7,6 +8,21 @@
   -moz-box-shadow: 10px 10px 5px #ccc;
   -webkit-box-shadow: 10px 10px 5px #ccc;
   -khtml-box-shadow: 10px 10px 5px #ccc;
+  &__remove {
+    &:after {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 5px;
+      padding: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      content: "\e9ad";
+      font-family: "icomoon";
+      color: lightseagreen;
+    }
+  }
   overflow: hidden;
   &__imgholder {
     overflow: hidden;
