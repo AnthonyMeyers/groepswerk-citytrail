@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use function Symfony\Component\String\u;
 
 /**
  * @ApiResource(
@@ -72,7 +73,7 @@ class GwCountry
 
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = u($name)->trim()->lower()->title();
 
         return $this;
     }

@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GwMonumentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use function Symfony\Component\String\u;
 
 /**
  * @ApiResource(
@@ -65,7 +66,7 @@ class GwMonument
 
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = u($name)->trim()->lower()->title();
 
         return $this;
     }
