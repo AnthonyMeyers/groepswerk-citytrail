@@ -9,7 +9,6 @@ import {
   useUpdateOneCityMutation,
 } from "../../data/landenApi";
 import { useSelector } from "react-redux";
-import placeholderCity from "../../images/placeholder_city.webp";
 
 const AppStadDetail = () => {
   const { id: landId, stadId } = useParams();
@@ -109,7 +108,7 @@ const AppStadDetail = () => {
           id: "terrain-data",
           type: "line",
           source: {
-            type: "vector",
+            type: "jpg",
             url: "mapbox://mapbox.mapbox-terrain-v2",
           },
           "source-layer": "contour",
@@ -124,7 +123,12 @@ const AppStadDetail = () => {
         <h2 className="staddetail__title">
           Detailpagina stad {stad && stad.name}
         </h2>
-        <Status error={error} loading={isLoading} />
+        <Status
+          error={error}
+          loading={isLoading}
+          loader={"./src/images/loading.gif"}
+        />
+
         {admin && (
           <div className="admin">
             <form onSubmit={handleCitySubmit}>

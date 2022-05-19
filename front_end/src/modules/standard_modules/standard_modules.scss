@@ -83,8 +83,10 @@
   left: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   &__text {
     font-size: 10px;
+    margin: 10px;
     &__symbol {
       font-size: 8px;
     }

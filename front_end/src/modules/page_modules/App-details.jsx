@@ -87,7 +87,11 @@ const AppDetail = () => {
           </div>
         </>
       )}
-      <Status error={errorLand} loading={loadingLand} />
+      <Status
+        error={errorLand}
+        loading={loadingLand}
+        loader={"../src/images/loading.gif"}
+      />
       {isSuccess && land.flag && <img src={land.flag} alt={land.name} />}
       {land &&
         land.cities.length > 0 &&
