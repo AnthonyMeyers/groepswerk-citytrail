@@ -15,6 +15,7 @@
 
 /* Modal Content */
 .modal-content {
+  position: relative;
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -25,7 +26,10 @@
 /* The Close Button */
 .close {
   color: #aaaaaa;
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px;
   font-size: 28px;
   font-weight: bold;
 }

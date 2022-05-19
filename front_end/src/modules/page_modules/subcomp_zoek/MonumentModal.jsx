@@ -54,44 +54,51 @@ const MonumentModal = ({ children, monumentId }) => {
         <div id="myModal" class="modal">
           <div class="modal-content">
             {admin && (
-              <form onSubmit={handleSubmitClick}>
-                <label>
-                  Monument naam
-                  <input
-                    type="text"
-                    value={monumentName}
-                    onInput={(e) => setMonumentName(e.target.value)}
-                    minLength="2"
-                    maxlength="20"
-                    required
-                  />
-                </label>
-                <label>
-                  Beschrijving
-                  <textarea
-                    value={description}
-                    onInput={(e) => setDescription(e.target.value)}
-                    maxlength="500"
-                  />
-                </label>
-                <label>
-                  Foto
-                  <input
-                    type="text"
-                    value={monumentImg}
-                    onInput={(e) => setMonumentImg(e.target.value)}
-                  />
-                </label>
-                <button type="submit">Wijzig monument</button>
-              </form>
+              <div className="admin">
+                <form onSubmit={handleSubmitClick} className="admin__form">
+                  <label className="admin__form__label">
+                    Monument naam
+                    <input
+                      type="text"
+                      value={monumentName}
+                      onInput={(e) => setMonumentName(e.target.value)}
+                      minLength="2"
+                      maxlength="20"
+                      required
+                      className="admin__form__label__input"
+                    />
+                  </label>
+                  <label className="admin__form__label">
+                    Beschrijving
+                    <textarea
+                      value={description}
+                      onInput={(e) => setDescription(e.target.value)}
+                      maxlength="500"
+                      className="admin__form__label__input"
+                    />
+                  </label>
+                  <label className="admin__form__label">
+                    Foto
+                    <input
+                      type="text"
+                      value={monumentImg}
+                      onInput={(e) => setMonumentImg(e.target.value)}
+                      className="admin__form__label__input"
+                    />
+                  </label>
+                  <button type="submit" className="admin__form__button">
+                    Wijzig monument
+                  </button>
+                </form>
+              </div>
             )}
             <span class="close" onClick={() => setShowModal(false)}>
               &times;
             </span>
-            <h3>{isSuccess ? monumentName : children}</h3>
+            <h3>{monument.name}</h3>
             {isSuccess && (
               <>
-                <p>{description}</p>
+                <p>{monument.description}</p>
                 {isSuccess && monument.img && monument.img.length > 0 && (
                   <img src={monument.img} alt={"foto van " + children} />
                 )}

@@ -26,15 +26,18 @@ export default function AppZoek() {
         {admin && (
           <div className="admin">
             <form className="admin__form" onSubmit={handleLandSubmit}>
-              <input
-                type="text"
-                value={addLand}
-                className="admin__form__input"
-                onInput={(e) => setAddland(e.target.value)}
-                minLength="2"
-                maxlength="20"
-                required
-              />
+              <label className="admin__form__label">
+                Land toevoegen
+                <input
+                  type="text"
+                  value={addLand}
+                  className="admin__form__label__input"
+                  onInput={(e) => setAddland(e.target.value)}
+                  minLength="2"
+                  maxlength="20"
+                  required
+                />
+              </label>
               <button type="submit" className="admin__form__button">
                 Land toevoegen
               </button>
