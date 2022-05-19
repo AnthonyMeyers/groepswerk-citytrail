@@ -11,9 +11,6 @@ use function Symfony\Component\String\u;
 /**
  * @ApiResource(
  *     shortName="Monument",
- *     attributes={
- *          "paginition_items_per_page"=20
- *     },
  *     normalizationContext={"groups"={"mon:read"}},
  *     denormalizationContext={"groups"={"mon:write"}}
  * )

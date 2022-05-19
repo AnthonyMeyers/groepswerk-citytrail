@@ -15,9 +15,6 @@ use function Symfony\Component\String\u;
 /**
  * @ApiResource(
  *     shortName="City",
- *     attributes={
- *           "paginition_items_per_page"=20
- *     },
  *     normalizationContext={"groups"={"city:read"}},
  *     denormalizationContext={"groups"={"city:write"}}
  * )

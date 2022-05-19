@@ -13,9 +13,6 @@ use function Symfony\Component\String\u;
 /**
  * @ApiResource(
  *     shortName="Language",
- *     attributes={
- *           "paginition_items_per_page"=20
- *     },
  *     normalizationContext={"groups"={"lang:read"}},
  *     denormalizationContext={"groups"={"lang:write"}}
  * )
