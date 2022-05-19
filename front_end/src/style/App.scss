@@ -8,6 +8,7 @@
 @use "../modules/standard_modules/standard_modules"; //header & footer
 @use "../modules/page_modules/subcomp_zoek/card.scss";
 @use "../Modules/page_modules/subcomp_zoek/MonumentModal.scss";
+@use "../modules/hooks/main_functions.scss";
 
 //GLOBALS
 body {

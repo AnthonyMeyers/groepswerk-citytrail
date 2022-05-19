@@ -1,7 +1,8 @@
 //Page header
 .header {
-  background-image: url("./src/images/old_ruins.jpg");
+  //background-image: url("./src/images/old_ruins.jpg");
   height: 50px;
+  position: relative;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -10,6 +11,15 @@
   align-items: center;
   padding: 0 0 0 20px;
   justify-content: space-between;
+  overflow: hidden;
+  &__img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
   &__title {
     color: white;
     font-size: 20px;

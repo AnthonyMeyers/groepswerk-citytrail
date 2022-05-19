@@ -61,14 +61,17 @@ const MonumentModal = ({ children, monumentId }) => {
                     type="text"
                     value={monumentName}
                     onInput={(e) => setMonumentName(e.target.value)}
+                    minLength="2"
+                    maxlength="20"
+                    required
                   />
                 </label>
                 <label>
                   Beschrijving
-                  <input
-                    type="text"
+                  <textarea
                     value={description}
                     onInput={(e) => setDescription(e.target.value)}
+                    maxlength="500"
                   />
                 </label>
                 <label>
@@ -89,13 +92,9 @@ const MonumentModal = ({ children, monumentId }) => {
             {isSuccess && (
               <>
                 <p>{description}</p>
-                {isSuccess && monument.img && (
+                {isSuccess && monument.img && monument.img.length > 0 && (
                   <img src={monument.img} alt={"foto van " + children} />
                 )}
-                {isSuccess &&
-                  monument.img &&
-                  monument.img.length ==
-                  <img src={monument.img} alt={"foto van " + children} />}
               </>
             )}
           </div>

@@ -35,8 +35,10 @@ const AppDetail = () => {
 
   function handleCitySubmit(e) {
     e.preventDefault(e);
-    addOneCity({ countryId: id, name: addCity });
-    setAddCity("");
+    if (addCity.length >= 2) {
+      addOneCity({ countryId: id, name: addCity });
+      setAddCity("");
+    }
   }
 
   function handleCountrySubmit(e) {
@@ -56,6 +58,9 @@ const AppDetail = () => {
                 type="text"
                 value={editCountry}
                 onInput={(e) => setEditCountry(e.target.value)}
+                minLength="2"
+                maxlength="20"
+                required
               />
             </label>
             <label>
@@ -74,6 +79,8 @@ const AppDetail = () => {
                 type="text"
                 value={addCity}
                 onInput={(e) => setAddCity(e.target.value)}
+                minLength="2"
+                maxlength="20"
               />
               <button className="admin__button">Stad toevoegen</button>
             </form>
@@ -107,9 +114,11 @@ const AppDetail = () => {
           ))}
         </ul>
       )}
-      <NavLink to={`/landen`}>
-        <button className="detail__button">Ga terug</button>
-      </NavLink>
+      {!loadingLand && (
+        <NavLink to={`/landen`}>
+          <button className="detail__button">Ga terug</button>
+        </NavLink>
+      )}
     </section>
   );
 };

@@ -31,6 +31,9 @@ export default function AppZoek() {
                 value={addLand}
                 className="admin__form__input"
                 onInput={(e) => setAddland(e.target.value)}
+                minLength="2"
+                maxlength="20"
+                required
               />
               <button type="submit" className="admin__form__button">
                 Land toevoegen
