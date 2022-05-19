@@ -41,7 +41,11 @@ export default function AppZoek() {
             </form>
           </div>
         )}
-        <Status error={isError} loading={isLoading} />
+        <Status
+          error={isError}
+          loading={isLoading}
+          loader={"../src/images/loading.gif"}
+        />
         {countryData && countryData.length > 0 && (
           <ul className="search__list">
             {countryData.map(({ id, name, flag }) => {
