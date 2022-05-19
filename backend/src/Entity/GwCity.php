@@ -10,13 +10,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use function Symfony\Component\String\u;
 
 /**
  * @ApiResource(
  *     shortName="City",
- *     attributes={
- *           "paginition_items_per_page"=20
- *     },
  *     normalizationContext={"groups"={"city:read"}},
  *     denormalizationContext={"groups"={"city:write"}}
  * )
@@ -65,7 +63,7 @@ class GwCity
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity=GwMonument::class, mappedBy="city")
+     * @ORM\OneToMany(targetEntity=GwMonument::class, mappedBy="city", orphanRemoval=true)
      * @Groups({"city:read"})
      */
     private $monuments;
@@ -87,7 +85,7 @@ class GwCity
 
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = u($name)->trim()->lower()->title();
 
         return $this;
     }
