@@ -1,8 +1,12 @@
 export function Status({ error, loading }) {
   return (
     <>
-      {loading && <h3 className="loading">loading</h3>}
-      {error && <h3 className="error">error</h3>}
+      {loading && (
+        <>
+          <img src="../src/images/loading.gif" className="loading" />
+        </>
+      )}
+      {error && <h3 className="error">Geen data gevonden</h3>}
     </>
   );
 }

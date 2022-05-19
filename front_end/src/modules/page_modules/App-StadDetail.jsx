@@ -25,18 +25,40 @@ const AppStadDetail = () => {
 
   const {
     data: stad,
-    isLoading: loading,
+    isLoading,
     isError: error,
     isSuccess,
   } = useGetOneStadQuery(stadId);
 
   function handleAddMonumentSubmit(e) {
     e.preventDefault();
-    addOneMonument({ cityId: stadId, name: addMonument });
+    if (addMonument.length >= 2) {
+      addOneMonument({ cityId: stadId, name: addMonument });
+      setAddMonument("");
+    }
   }
 
   function handleCitySubmit(e) {
     e.preventDefault();
+    const longTest = parseFloat(longitude) * 1;
+    const latTest = parseFloat(latitude) * 1;
+
+    const long = isNaN(longTest)
+      ? 0
+      : longTest < 0
+      ? 0
+      : longTest > 90
+      ? 90
+      : longTest;
+    const lat = isNaN(latTest)
+      ? 0
+      : latTest < 0
+      ? 0
+      : latTest > 90
+      ? 90
+      : latTest;
+    setLatitude(lat);
+    setLongitude(long);
     updateCity({
       id: stadId,
       name: cityName,
@@ -57,8 +79,23 @@ const AppStadDetail = () => {
 
   useLayoutEffect(() => {
     if (stad && stad.id > 0 && stad.longitude && stad.latidude) {
-      const long = parseFloat(stad.longitude) * 1;
-      const lat = parseFloat(stad.latidude) * 1;
+      const longTest = parseFloat(stad.longitude) * 1;
+      const latTest = parseFloat(stad.latidude) * 1;
+
+      const long = isNaN(longTest)
+        ? 0
+        : longTest < 0
+        ? 0
+        : longTest > 90
+        ? 90
+        : longTest;
+      const lat = isNaN(latTest)
+        ? 0
+        : latTest < 0
+        ? 0
+        : latTest > 90
+        ? 90
+        : latTest;
       mapboxgl.accessToken =
         "pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw";
       const map = new mapboxgl.Map({
@@ -87,7 +124,7 @@ const AppStadDetail = () => {
         <h2 className="staddetail__title">
           Detailpagina stad {stad && stad.name}
         </h2>
-        <Status error={error} loading={loading} />
+        <Status error={error} loading={isLoading} />
         {admin && (
           <div className="admin">
             <form onSubmit={handleCitySubmit}>
@@ -97,6 +134,9 @@ const AppStadDetail = () => {
                   type="text"
                   value={cityName}
                   onInput={(e) => setCityName(e.target.value)}
+                  minLength="2"
+                  maxlength="20"
+                  required
                 />
               </label>
               <label>
@@ -133,6 +173,8 @@ const AppStadDetail = () => {
                   type="text"
                   value={addMonument}
                   onInput={(e) => setAddMonument(e.target.value)}
+                  minLength="2"
+                  maxlength="20"
                 />
               </label>
               <button className="admin__button">Monument toevoegen</button>

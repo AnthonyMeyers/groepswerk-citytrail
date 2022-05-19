@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const placeholderImg =
+  "https://live.staticflickr.com/1495/26377748321_b6a30b9094_m.jpg";
+
 const api = createApi({
   reducerPath: "landenApi",
   baseQuery: fetchBaseQuery({
@@ -50,7 +53,13 @@ const api = createApi({
           accept: "application/json",
         },
         method: "POST",
-        body: { country: `/api/countries/${countryId}`, name },
+        body: {
+          country: `/api/countries/${countryId}`,
+          name,
+          latidude: "0",
+          longitude: "0",
+          img: placeholderImg,
+        },
       }),
       invalidatesTags: ["STEDEN", "LANDEN"],
     }),
@@ -124,9 +133,9 @@ const api = createApi({
       query: ({
         id,
         name = "",
-        latidude = null,
-        longitude = null,
-        img = null,
+        latidude = 0,
+        longitude = 0,
+        img = placeholderImg,
       }) => ({
         url: `/cities/${id}.json`,
         headers: {
@@ -140,7 +149,7 @@ const api = createApi({
     }),
     //Wijzig een monument
     updateOneMonument: builder.mutation({
-      query: ({ id, name = "", description = "", img = "" }) => ({
+      query: ({ id, name = "", description = "", img }) => ({
         url: `/monuments/${id}.json`,
         headers: {
           "Content-Type": "application/json",
