@@ -5,26 +5,28 @@ const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://127.0.0.1:8000/api",
   }),
-  tagTypes: ["Post"],
-  keepUnusedDataFor: 1,
+  tagTypes: ["LANDEN", "STEDEN", "MONUMENTEN"],
   endpoints: (builder) => ({
     //Get alle landen
     getAllLanden: builder.query({
-      query: () => ({ url: `/countries.json` }),
-      providesTags: ["Post"],
+      query: () => `/countries.json`,
+      providesTags: ["LANDEN"],
     }),
     //Get 1 land
     getOneLand: builder.query({
-      query: (id) => ({ url: `/countries/${id}.json` }),
+      query: (id) => `/countries/${id}.json`,
+      providesTags: ["LANDEN"],
     }),
 
     //Get 1 stad
     getOneStad: builder.query({
       query: (id) => ({ url: `/cities/${id}.json` }),
+      providesTags: ["STEDEN"],
     }),
     //Get 1 monument
     getOneMonument: builder.query({
       query: (id) => ({ url: `/monuments/${id}.json` }),
+      providesTags: ["MONUMENTEN"],
     }),
     //Post een land
     AddOneLand: builder.mutation({
@@ -37,7 +39,7 @@ const api = createApi({
         method: "POST",
         body: { name },
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["LANDEN"],
     }),
     //Post een stad
     AddOneStad: builder.mutation({
@@ -50,6 +52,7 @@ const api = createApi({
         method: "POST",
         body: { country: `/api/countries/${countryId}`, name },
       }),
+      invalidatesTags: ["STEDEN", "LANDEN"],
     }),
     //Post een monument
     AddOneMonument: builder.mutation({
@@ -62,6 +65,7 @@ const api = createApi({
         method: "POST",
         body: { city: `/api/cities/${cityId}`, name },
       }),
+      invalidatesTags: ["STEDEN", "MONUMENTEN"],
     }),
     //Delete een land
     removeOneLand: builder.mutation({
@@ -74,7 +78,7 @@ const api = createApi({
         method: "DELETE",
         body: id,
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["LANDEN"],
     }),
     //Delete een stad
     removeOneCity: builder.mutation({
@@ -87,6 +91,7 @@ const api = createApi({
         method: "DELETE",
         body: id,
       }),
+      invalidatesTags: ["STEDEN", "LANDEN"],
     }),
     //Delete een monument
     removeOneMonument: builder.mutation({
@@ -99,6 +104,7 @@ const api = createApi({
         method: "DELETE",
         body: id,
       }),
+      invalidatesTags: ["MONUMENTEN", "STEDEN"],
     }),
     //Wijzig een land
     updateOneLand: builder.mutation({
@@ -111,6 +117,7 @@ const api = createApi({
         method: "PUT",
         body: { id, name, flag },
       }),
+      invalidatesTags: ["LANDEN"],
     }),
     //Wijzig een stad
     updateOneCity: builder.mutation({
@@ -129,18 +136,20 @@ const api = createApi({
         method: "PUT",
         body: { id, name, latidude, longitude, img },
       }),
+      invalidatesTags: ["STEDEN"],
     }),
     //Wijzig een monument
     updateOneMonument: builder.mutation({
-      query: ({ id, name = "", description = "", img = null }) => ({
-        url: `/cities/${id}.json`,
+      query: ({ id, name = "", description = "", img = "" }) => ({
+        url: `/monuments/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
         },
         method: "PUT",
-        body: { id, name, description, img },
+        body: { id, name: name, description, img },
       }),
+      invalidatesTags: ["MONUMENTEN"],
     }),
   }),
 });

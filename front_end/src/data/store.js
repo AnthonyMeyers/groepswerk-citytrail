@@ -6,6 +6,8 @@ const store = configureStore({
     [landenApi.reducerPath]: landenApi.reducer,
     [admin.name]: admin.reducer,
   }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(landenApi.middleware),
 });
 
 export default store;

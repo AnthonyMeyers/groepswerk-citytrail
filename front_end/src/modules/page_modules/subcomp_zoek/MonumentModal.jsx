@@ -9,6 +9,7 @@ import React from "react";
 
 const MonumentModal = ({ children, monumentId }) => {
   const { admin } = useSelector((state) => state.adminState);
+  const [updateMonument] = useUpdateOneMonumentMutation();
 
   const {
     data: monument,
@@ -17,11 +18,32 @@ const MonumentModal = ({ children, monumentId }) => {
     isSuccess,
   } = useGetOneMonumentQuery(monumentId);
 
-  const [updateMonument] = useUpdateOneCityMutation();
   const [showModal, setShowModal] = useState(false);
   const [monumentName, setMonumentName] = useState("");
   const [description, setDescription] = useState("");
-  const [monumentimg, setMonumentImg] = useState("");
+  const [monumentImg, setMonumentImg] = useState("");
+
+  useEffect(() => {
+    if (monument && monument.name != null && monument.name.length > 0) {
+      setMonumentName(monument.name);
+    }
+    if (monument && monument.description != null) {
+      setDescription(monument.description);
+    }
+    if (monument && monument.img != null) {
+      setMonumentImg(monument.img);
+    }
+  }, [monument]);
+
+  function handleSubmitClick(e) {
+    e.preventDefault();
+    updateMonument({
+      id: monument.id,
+      name: monumentName,
+      description,
+      img: monumentImg,
+    });
+  }
   return (
     <div>
       <a id="myBtn" onClick={() => setShowModal(!showModal)}>
@@ -30,28 +52,50 @@ const MonumentModal = ({ children, monumentId }) => {
 
       {showModal && (
         <div id="myModal" class="modal">
-          {admin && (
-            <form>
-              <label>
-                <input type="text" />
-              </label>
-            </form>
-          )}
           <div class="modal-content">
+            {admin && (
+              <form onSubmit={handleSubmitClick}>
+                <label>
+                  Monument naam
+                  <input
+                    type="text"
+                    value={monumentName}
+                    onInput={(e) => setMonumentName(e.target.value)}
+                  />
+                </label>
+                <label>
+                  Beschrijving
+                  <input
+                    type="text"
+                    value={description}
+                    onInput={(e) => setDescription(e.target.value)}
+                  />
+                </label>
+                <label>
+                  Foto
+                  <input
+                    type="text"
+                    value={monumentImg}
+                    onInput={(e) => setMonumentImg(e.target.value)}
+                  />
+                </label>
+                <button type="submit">Wijzig monument</button>
+              </form>
+            )}
             <span class="close" onClick={() => setShowModal(false)}>
               &times;
             </span>
-            <h3>{children}</h3>
+            <h3>{isSuccess ? monumentName : children}</h3>
             {isSuccess && (
               <>
-                <p>{monument.description}</p>
+                <p>{description}</p>
                 {isSuccess && monument.img && (
                   <img src={monument.img} alt={"foto van " + children} />
                 )}
                 {isSuccess &&
                   monument.img &&
                   monument.img.length ==
-                    0(<img src={monument.img} alt={"foto van " + children} />)}
+                  <img src={monument.img} alt={"foto van " + children} />}
               </>
             )}
           </div>
