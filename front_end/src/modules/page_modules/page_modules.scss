@@ -68,14 +68,17 @@
 }
 
 .team {
+  display: flex;
+  flex-direction: column;
   &__article {
     margin-bottom: 20px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     &__imgholder {
       position: relative;
-      width: 300px;
+      width: 25%;
+      min-width: 250px;
       border-radius: 15px;
       overflow: hidden;
       -webkit-filter: grayscale(100%);

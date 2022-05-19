@@ -51,38 +51,45 @@ const AppDetail = () => {
       <h2 className="detail__title">Detailpagina {land && land.name}</h2>
       {admin && (
         <>
-          <form onSubmit={handleCountrySubmit}>
-            <label>
-              Naam Land
-              <input
-                type="text"
-                value={editCountry}
-                onInput={(e) => setEditCountry(e.target.value)}
-                minLength="2"
-                maxlength="20"
-                required
-              />
-            </label>
-            <label>
-              Link vlag
-              <input
-                type="text"
-                value={editFlag}
-                onInput={(e) => setEditFlag(e.target.value)}
-              />
-            </label>
-            <button className="admin__button">Land bewerken</button>
-          </form>
           <div className="admin">
-            <form onSubmit={handleCitySubmit}>
-              <input
-                type="text"
-                value={addCity}
-                onInput={(e) => setAddCity(e.target.value)}
-                minLength="2"
-                maxlength="20"
-              />
-              <button className="admin__button">Stad toevoegen</button>
+            <form onSubmit={handleCountrySubmit} className="admin__form">
+              <label className="admin__form__label">
+                Naam Land
+                <input
+                  type="text"
+                  value={editCountry}
+                  onInput={(e) => setEditCountry(e.target.value)}
+                  minLength="2"
+                  maxlength="20"
+                  required
+                  className="admin__form__label__input"
+                />
+              </label>
+              <label className="admin__form__label">
+                Link vlag
+                <input
+                  type="text"
+                  value={editFlag}
+                  onInput={(e) => setEditFlag(e.target.value)}
+                  className="admin__form__label__input"
+                />
+              </label>
+              <button className="admin__form__button">Land bewerken</button>
+            </form>
+
+            <form onSubmit={handleCitySubmit} className="admin__form">
+              <label className="admin__form__label">
+                Stad toevoegen
+                <input
+                  type="text"
+                  value={addCity}
+                  onInput={(e) => setAddCity(e.target.value)}
+                  minLength="2"
+                  maxlength="20"
+                  className="admin__form__label__input"
+                />
+              </label>
+              <button className="admin__form__button">Stad toevoegen</button>
             </form>
           </div>
         </>

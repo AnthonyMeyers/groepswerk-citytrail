@@ -12,14 +12,17 @@ import { useSelector } from "react-redux";
 
 const AppStadDetail = () => {
   const { id: landId, stadId } = useParams();
+
   const { admin } = useSelector((state) => state.adminState);
-  const [addMonument, setAddMonument] = useState("");
+
+  const [addMonument, setAddMonument] = useState(null);
+  const [cityName, setCityName] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [photo, setPhoto] = useState(null);
+
   const [addOneMonument] = useAddOneMonumentMutation();
   const [removeOneMonument] = useRemoveOneMonumentMutation();
-  const [cityName, setCityName] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [photo, setPhoto] = useState("");
   const [updateCity] = useUpdateOneCityMutation();
 
   const {
@@ -39,25 +42,6 @@ const AppStadDetail = () => {
 
   function handleCitySubmit(e) {
     e.preventDefault();
-    const longTest = parseFloat(longitude) * 1;
-    const latTest = parseFloat(latitude) * 1;
-
-    const long = isNaN(longTest)
-      ? 0
-      : longTest < 0
-      ? 0
-      : longTest > 90
-      ? 90
-      : longTest;
-    const lat = isNaN(latTest)
-      ? 0
-      : latTest < 0
-      ? 0
-      : latTest > 90
-      ? 90
-      : latTest;
-    setLatitude(lat);
-    setLongitude(long);
     updateCity({
       id: stadId,
       name: cityName,
@@ -131,47 +115,53 @@ const AppStadDetail = () => {
 
         {admin && (
           <div className="admin">
-            <form onSubmit={handleCitySubmit}>
-              <label>
+            <form onSubmit={handleCitySubmit} className="admin__form">
+              <label className="admin__form__label">
                 Stadnaam
                 <input
                   type="text"
                   value={cityName}
                   onInput={(e) => setCityName(e.target.value)}
                   minLength="2"
-                  maxlength="20"
+                  maxLength="20"
                   required
+                  className="admin__form__label__input"
                 />
               </label>
-              <label>
+              <label className="admin__form__label">
                 Latitude
                 <input
                   type="text"
                   value={longitude}
                   onInput={(e) => setLongitude(e.target.value)}
+                  className="admin__form__label__input"
                 />
               </label>
-              <label>
+              <label className="admin__form__label">
                 Longitude
                 <input
                   type="text"
                   value={latitude}
                   onInput={(e) => setLatitude(e.target.value)}
+                  className="admin__form__label__input"
                 />
               </label>
-              <label>
+              <label className="admin__form__label">
                 Url foto
                 <input
                   type="text"
                   value={photo}
                   onInput={(e) => setPhoto(e.target.value)}
+                  className="admin__form__label__input"
                 />
               </label>
-              <button type="submit">Bewerk stad</button>
+              <button type="submit" className="admin__form__button">
+                Bewerk stad
+              </button>
             </form>
 
-            <form onSubmit={handleAddMonumentSubmit}>
-              <label>
+            <form onSubmit={handleAddMonumentSubmit} className="admin__form">
+              <label className="admin__form__label">
                 Voeg een monument toe
                 <input
                   type="text"
@@ -179,23 +169,18 @@ const AppStadDetail = () => {
                   onInput={(e) => setAddMonument(e.target.value)}
                   minLength="2"
                   maxlength="20"
+                  className="admin__form__label__input"
                 />
               </label>
-              <button className="admin__button">Monument toevoegen</button>
+              <button type="submit" className="admin__form__button">
+                Monument toevoegen
+              </button>
             </form>
           </div>
         )}
         {isSuccess && stad.img && (
           <img src={stad.img} alt={stad.name} className="staddetail__img" />
         )}
-        {(isSuccess && !stad.img) ||
-          (stad?.img === "" && (
-            <img
-              src={placeholderCity}
-              alt="placeholder city"
-              className="staddetail__img"
-            />
-          ))}
         {stad && stad.longitude != null && stad.latidude != null && (
           <div id="map"></div>
         )}

@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const placeholderImg =
-  "https://live.staticflickr.com/1495/26377748321_b6a30b9094_m.jpg";
+const placeholderImg = "./src/images/placeholder_city.webp";
 
 const api = createApi({
   reducerPath: "landenApi",

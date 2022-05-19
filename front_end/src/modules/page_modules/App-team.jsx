@@ -19,7 +19,12 @@ export default function Appteam() {
             <h3 className="team__article__description__job">
               Back end development
             </h3>
-            <p className="team__article__description__text">Reenactor actor</p>
+            <p className="team__article__description__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos cum
+              numquam harum. Blanditiis beatae doloremque perspiciatis assumenda
+              distinctio id neque, illo odit reiciendis recusandae magni
+              similique qui repudiandae dolor adipisci.
+            </p>
           </div>
         </article>
         <article className="team__article">
@@ -37,7 +42,12 @@ export default function Appteam() {
             <h3 className="team__article__description__job">
               Front end development
             </h3>
-            <p className="team__article__description__text">testing</p>
+            <p className="team__article__description__text">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam
+              exercitationem accusantium, id omnis modi nihil fuga adipisci odio
+              quidem illum culpa alias hic ratione. Magni eum repudiandae autem
+              libero. Cupiditate.
+            </p>
           </div>
         </article>
       </section>
