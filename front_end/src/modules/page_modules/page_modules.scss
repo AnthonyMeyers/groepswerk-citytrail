@@ -21,23 +21,65 @@
 }
 
 .detail {
-  &__city {
-    position: relative;
-    &__link {
-      &__title {
-        display: inline;
-        font-size: 20px;
+  &__country {
+    display: flex;
+    gap: 20px;
+    &__languages {
+      &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        &__item {
+          position: relative;
+          &__remove {
+            position: absolute;
+            margin-right: 30px;
+            position: relative;
+            top: 15%;
+            right: 0px;
+            padding: 5px;
+            &::after {
+              content: "\ea0b";
+              font-size: 20px;
+              font-family: "icomoon";
+              color: lightseagreen;
+            }
+          }
+        }
       }
     }
-    &__remove {
-      position: absolute;
-      left: 200px;
-      top: 0;
-      &:after {
-        content: "\e9ad";
-        font-size: 20px;
-        font-family: "icomoon";
-        color: lightseagreen;
+    &__img {
+      display: block;
+      border: 3px solid black;
+      border-radius: 20px;
+      width: 300px;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+  }
+  &__cities {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    margin-bottom: 20px;
+    &__city {
+      position: relative;
+      &__link {
+        &__title {
+          display: inline;
+          font-size: 20px;
+        }
+      }
+      &__remove {
+        position: absolute;
+        left: 200px;
+        top: 0;
+        &:after {
+          content: "\e9ad";
+          font-size: 20px;
+          font-family: "icomoon";
+          color: lightseagreen;
+        }
       }
     }
   }

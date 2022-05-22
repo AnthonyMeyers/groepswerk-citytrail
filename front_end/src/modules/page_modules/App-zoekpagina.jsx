@@ -54,7 +54,7 @@ export default function AppZoek() {
             {countryData.map(({ id, name, flag }) => {
               return (
                 <li className="search__list__item" key={id}>
-                  <Card country={name} id={id} />
+                  <Card country={name} id={id} flag={flag} />
                 </li>
               );
             })}

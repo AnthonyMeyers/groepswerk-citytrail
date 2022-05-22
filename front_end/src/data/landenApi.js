@@ -1,23 +1,30 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const placeholderImg = "./src/images/placeholder_city.webp";
+const placeholderImgStad = "./src/images/placeholder_city.webp";
+const placeholderImgMon = "./src/images/monument_placeholder.webp";
+const placeholderFlag = "./src/images/unknown_flag.jpg";
 
 const api = createApi({
   reducerPath: "landenApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://127.0.0.1:8000/api",
   }),
-  tagTypes: ["LANDEN", "STEDEN", "MONUMENTEN"],
+  tagTypes: ["LANDEN", "STEDEN", "MONUMENTEN", "TALEN"],
   endpoints: (builder) => ({
     //Get alle landen
     getAllLanden: builder.query({
       query: () => `/countries.json`,
       providesTags: ["LANDEN"],
     }),
+    //Get alle talen
+    getAllLanguages: builder.query({
+      query: () => `/languages.json`,
+      providesTags: ["TALEN"],
+    }),
     //Get 1 land
     getOneLand: builder.query({
-      query: (id) => `/countries/${id}.json`,
-      providesTags: ["LANDEN"],
+      query: (id) => `/countries/${id}.jsonld`,
+      providesTags: ["LANDEN", "TALEN"],
     }),
 
     //Get 1 stad
@@ -31,7 +38,7 @@ const api = createApi({
       providesTags: ["MONUMENTEN"],
     }),
     //Post een land
-    AddOneLand: builder.mutation({
+    addOneLand: builder.mutation({
       query: (name) => ({
         url: `/countries.json`,
         headers: {
@@ -39,12 +46,25 @@ const api = createApi({
           accept: "application/json",
         },
         method: "POST",
-        body: { name },
+        body: { name, flag: placeholderFlag, languages: [] },
       }),
       invalidatesTags: ["LANDEN"],
     }),
+    //Post een taal
+    addOneLanguage: builder.mutation({
+      query: (name) => ({
+        url: `/languages.json`,
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        method: "POST",
+        body: { name },
+      }),
+      invalidatesTags: ["LANDEN", "TALEN"],
+    }),
     //Post een stad
-    AddOneStad: builder.mutation({
+    addOneStad: builder.mutation({
       query: ({ countryId, name }) => ({
         url: `/cities.json`,
         headers: {
@@ -57,13 +77,13 @@ const api = createApi({
           name,
           latidude: "0",
           longitude: "0",
-          img: placeholderImg,
+          img: placeholderImgStad,
         },
       }),
       invalidatesTags: ["STEDEN", "LANDEN"],
     }),
     //Post een monument
-    AddOneMonument: builder.mutation({
+    addOneMonument: builder.mutation({
       query: ({ cityId, name }) => ({
         url: `/monuments.json`,
         headers: {
@@ -71,10 +91,11 @@ const api = createApi({
           accept: "application/json",
         },
         method: "POST",
-        body: { city: `/api/cities/${cityId}`, name },
+        body: { city: `/api/cities/${cityId}`, name, img: placeholderImgMon },
       }),
       invalidatesTags: ["STEDEN", "MONUMENTEN"],
     }),
+
     //Delete een land
     removeOneLand: builder.mutation({
       query: (id) => ({
@@ -87,6 +108,19 @@ const api = createApi({
         body: id,
       }),
       invalidatesTags: ["LANDEN"],
+    }),
+    //DELETE een taal
+    removeOneLanguage: builder.mutation({
+      query: (id) => ({
+        url: `/languages/${id}.json`,
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        method: "DELETE",
+        body: { id },
+      }),
+      invalidatesTags: ["LANDEN", "TALEN"],
     }),
     //Delete een stad
     removeOneCity: builder.mutation({
@@ -126,6 +160,22 @@ const api = createApi({
         body: { id, name, flag },
       }),
       invalidatesTags: ["LANDEN"],
+    }),
+    //Voeg taal toe aan land
+    changeLanguagesCity: builder.mutation({
+      query: ({ id, languages }) => (
+        console.log(languages),
+        {
+          url: `/countries/${id}.json`,
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+          method: "PUT",
+          body: { languages },
+        }
+      ),
+      invalidatesTags: ["LANDEN", "TALEN"],
     }),
     //Wijzig een stad
     updateOneCity: builder.mutation({
@@ -169,13 +219,17 @@ export const {
   useGetStedenLandQuery,
   useGetOneStadQuery,
   useGetOneMonumentQuery,
+  useGetAllLanguagesQuery,
   useAddOneLandMutation,
   useAddOneStadMutation,
   useAddOneMonumentMutation,
+  useAddOneLanguageMutation,
   useRemoveOneLandMutation,
+  useRemoveOneLanguageMutation,
   useRemoveOneCityMutation,
   useRemoveOneMonumentMutation,
   useUpdateOneLandMutation,
   useUpdateOneCityMutation,
   useUpdateOneMonumentMutation,
+  useChangeLanguagesCityMutation,
 } = api;

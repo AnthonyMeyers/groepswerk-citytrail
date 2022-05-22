@@ -1,12 +1,8 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import {
-  useRemoveOneLandMutation,
-  useRemoveOneCityMutation,
-  useRemoveOneMonumentMutation,
-} from "../../../data/landenApi";
+import { useRemoveOneLandMutation } from "../../../data/landenApi";
 
-export default function CountryCard({ country, id }, className) {
+export default function CountryCard({ country, id, flag }, className) {
   const { admin } = useSelector((state) => state.adminState);
   const [removeOneLand] = useRemoveOneLandMutation();
 
@@ -20,11 +16,7 @@ export default function CountryCard({ country, id }, className) {
               alt="land foto"
               src=".\src\images\new_york.jpg"
             />
-            <img
-              className="card__imgholder__flag"
-              alt="vlag land"
-              src=".\src\images\america.png"
-            />
+            <img className="card__imgholder__flag" alt="vlag land" src={flag} />
           </div>
         </NavLink>
         <div className="card__text">
