@@ -29,7 +29,7 @@ class GwCountry
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"city:read","country:read","country:write","lang:read"})
      */
     private $name;

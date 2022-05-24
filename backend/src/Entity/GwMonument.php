@@ -27,7 +27,7 @@ class GwMonument
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"city:read","mon:read","mon:write"})
      */
     private $name;
