@@ -51,7 +51,7 @@ export default function AppAdmin() {
                 className="admin__form__label__input"
                 onInput={(e) => setLanguage(e.target.value)}
                 minLength="2"
-                maxlength="20"
+                maxLength="20"
                 required
               />
             </label>

@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState, useEffect } from "react";
+
 import MonumentModal from "./subcomp_zoek/MonumentModal";
 import { useParams, NavLink } from "react-router-dom";
 import { Status } from "../hooks/main_functions";
@@ -60,47 +61,6 @@ const AppStadDetail = () => {
     }
   }, [isSuccess]);
 
-  useLayoutEffect(() => {
-    if (stad && stad.id > 0 && stad.longitude && stad.latidude) {
-      const longTest = parseFloat(stad.longitude) * 1;
-      const latTest = parseFloat(stad.latidude) * 1;
-
-      const long = isNaN(longTest)
-        ? 0
-        : longTest < 0
-        ? 0
-        : longTest > 90
-        ? 90
-        : longTest;
-      const lat = isNaN(latTest)
-        ? 0
-        : latTest < 0
-        ? 0
-        : latTest > 90
-        ? 90
-        : latTest;
-      mapboxgl.accessToken =
-        "pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw";
-      const map = new mapboxgl.Map({
-        container: "map", // container ID
-        style: "mapbox://styles/mapbox/streets-v11", // style URL
-        center: [long, lat], // starting position [lng, lat]
-        zoom: 9, // starting zoom
-      });
-      map.on("load", () => {
-        map.addLayer({
-          id: "terrain-data",
-          type: "line",
-          source: {
-            type: "jpg",
-            url: "mapbox://mapbox.mapbox-terrain-v2",
-          },
-          "source-layer": "contour",
-        });
-      });
-    }
-  }, [stad]);
-
   return (
     <>
       <section className="staddetail">
@@ -159,7 +119,6 @@ const AppStadDetail = () => {
                 Bewerk stad
               </button>
             </form>
-
             <form onSubmit={handleAddMonumentSubmit} className="admin__form">
               <label className="admin__form__label">
                 Voeg een monument toe
@@ -168,7 +127,7 @@ const AppStadDetail = () => {
                   value={addMonument}
                   onInput={(e) => setAddMonument(e.target.value)}
                   minLength="2"
-                  maxlength="20"
+                  maxLength="20"
                   className="admin__form__label__input"
                 />
               </label>
@@ -181,8 +140,11 @@ const AppStadDetail = () => {
         {isSuccess && stad.img && (
           <img src={stad.img} alt={stad.name} className="staddetail__img" />
         )}
-        {stad && stad.longitude != null && stad.latidude != null && (
-          <div id="map"></div>
+        {isSuccess && (
+          <img
+            src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${stad.longitude},${stad.latidude},9,0/300x300?access_token=pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw`}
+            className="staddetail__img"
+          />
         )}
         {stad && stad.monuments.length > 0 && (
           <ul className="staddetail__list">
@@ -201,7 +163,6 @@ const AppStadDetail = () => {
             ))}
           </ul>
         )}
-
         <NavLink to={`/land/${landId}`}>
           <button>Ga terug</button>
         </NavLink>
@@ -211,3 +172,53 @@ const AppStadDetail = () => {
 };
 
 export default AppStadDetail;
+
+/*
+
+  useLayoutEffect(() => {
+    if (stad && stad.id > 0 && stad.longitude && stad.latidude) {
+      const longTest = parseFloat(stad.longitude) * 1;
+      const latTest = parseFloat(stad.latidude) * 1;
+
+      const long = isNaN(longTest)
+        ? 0
+        : longTest < 0
+        ? 0
+        : longTest > 90
+        ? 90
+        : longTest;
+      const lat = isNaN(latTest)
+        ? 0
+        : latTest < 0
+        ? 0
+        : latTest > 90
+        ? 90
+        : latTest;
+      mapboxgl.accessToken =
+        "pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw";
+      const map = new mapboxgl.Map({
+        container: "map", // container ID
+        style: "mapbox://styles/mapbox/streets-v11", // style URL
+        center: [long, lat], // starting position [lng, lat]
+        zoom: 9, // starting zoom
+      });
+      map.on("load", () => {
+        map.addLayer({
+          id: "terrain-data",
+          type: "line",
+          source: {
+            type: "jpg",
+            url: "mapbox://mapbox.mapbox-terrain-v2",
+          },
+          "source-layer": "contour",
+        });
+      });
+    }
+  }, [stad]);
+
+
+
+          {stad && stad.longitude != null && stad.latidude != null && (
+          <div id="map"></div>
+        )}
+  */

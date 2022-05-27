@@ -13,8 +13,40 @@ const api = createApi({
   endpoints: (builder) => ({
     //Get alle landen
     getAllLanden: builder.query({
-      query: () => `/countries.json`,
+      query: (page = "/api/countries.jsonld?page=1") => {
+        page = page.toString().substr(page.toString().indexOf("?page=" + 6));
+        return `/countries.jsonld?page=${page}`;
+      },
       providesTags: ["LANDEN"],
+      transformResponse: (response) => {
+        let lastPage = "/api/countries.jsonld?page=1";
+        let nextPage = "/api/countries.jsonld?page=1";
+        let isPage = "";
+        if ("hydra:view" in response) {
+          if ("hydra:previous" in response["hydra:view"]) {
+            lastPage = response["hydra:view"]["hydra:previous"];
+          } else if ("hydra:last" in response["hydra:view"]) {
+            lastPage = response["hydra:view"]["hydra:last"];
+          }
+          if ("@id" in response["hydra:view"]) {
+            isPage = response["hydra:view"]["@id"]
+              .toString()
+              .substr(
+                response["hydra:view"]["@id"].toString().indexOf("?page=" + 6)
+              );
+          }
+        }
+
+        if (response["hydra:view"] && response["hydra:view"]["hydra:next"]) {
+          nextPage = response["hydra:view"]["hydra:next"];
+        }
+        return {
+          list: response["hydra:member"],
+          lastPage,
+          nextPage,
+          isPage,
+        };
+      },
     }),
     //Get alle talen
     getAllLanguages: builder.query({
@@ -233,3 +265,9 @@ export const {
   useUpdateOneMonumentMutation,
   useChangeLanguagesCityMutation,
 } = api;
+
+/*    //Get alle landen
+    getAllLanden: builder.query({
+      query: () => `/countries.json?page=1`,
+      providesTags: ["LANDEN"],
+    }),*/
