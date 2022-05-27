@@ -9,19 +9,20 @@ export default function CountryCard({ country, id, flag }, className) {
   return (
     <>
       <div className={className === "shrink" ? "card shrink" : "card"}>
-        <NavLink to={`/land/${id}`}>
-          <div className="card__imgholder">
+        <div className="card__imgholder">
+          <NavLink to={`/land/${id}`}>
             <img
               className="card__imgholder__img"
               alt="land foto"
               src=".\src\images\new_york.jpg"
             />
             <img className="card__imgholder__flag" alt="vlag land" src={flag} />
-          </div>
-        </NavLink>
+          </NavLink>
+        </div>
+
         <div className="card__text">
-          <NavLink to={`/land/${id}`}>
-            <h3 className="card__text__title">{country}</h3>
+          <NavLink to={`/land/${id}`} className="card__text__link">
+            <h3 className="card__text__link__title">{country}</h3>
           </NavLink>
         </div>
         {admin && (

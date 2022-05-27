@@ -8,19 +8,20 @@
   -moz-box-shadow: 10px 10px 5px #ccc;
   -webkit-box-shadow: 10px 10px 5px #ccc;
   -khtml-box-shadow: 10px 10px 5px #ccc;
+  gap: 0px;
   &__remove {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 5px;
+    padding: 10px;
     &:after {
-      display: block;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      margin: 5px;
-      padding: 10px;
-      font-size: 20px;
-      cursor: pointer;
       content: "\e9ad";
       font-family: "icomoon";
       color: lightseagreen;
+      font-size: 20px;
+      cursor: pointer;
     }
   }
   overflow: hidden;
@@ -28,10 +29,11 @@
     overflow: hidden;
     position: relative;
     width: 50%;
+
     &__img {
       display: block;
       width: 100%;
-      height: 100%;
+      aspect-ratio: 3/2;
     }
     &__flag {
       display: block;
@@ -47,7 +49,16 @@
   &__text {
     padding: 10px;
     width: 100px;
-    &__title {
+    &__link {
+      display: block;
+      width: 100%;
+      height: 30px;
+      word-break: break-all;
+      &__title {
+        font-size: 14px;
+
+        width: 100%;
+      }
     }
   }
 }

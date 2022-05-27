@@ -111,7 +111,7 @@ const AppDetail = () => {
                   value={editCountry}
                   onInput={(e) => setEditCountry(e.target.value)}
                   minLength="2"
-                  maxlength="20"
+                  maxLength="20"
                   required
                   className="admin__form__label__input"
                 />
@@ -136,7 +136,7 @@ const AppDetail = () => {
                   value={addCity}
                   onInput={(e) => setAddCity(e.target.value)}
                   minLength="2"
-                  maxlength="20"
+                  maxLength="20"
                   className="admin__form__label__input"
                 />
               </label>
@@ -150,7 +150,7 @@ const AppDetail = () => {
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
                 >
-                  <option value="0"></option>
+                  <option value="0">selecteer een taal</option>
                   {activeLanguages.length > 0 &&
                     activeLanguages.map(({ id, name }) => (
                       <option value={id} key={id}>
@@ -216,7 +216,7 @@ const AppDetail = () => {
               </NavLink>
               {admin && (
                 <a
-                  class="detail__cities__city__remove"
+                  className="detail__cities__city__remove"
                   onClick={() => removeCity(id)}
                 ></a>
               )}
