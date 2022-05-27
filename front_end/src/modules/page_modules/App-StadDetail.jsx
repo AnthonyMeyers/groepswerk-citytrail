@@ -55,9 +55,15 @@ const AppStadDetail = () => {
   useEffect(() => {
     if (isSuccess) {
       setCityName(stad.name);
-      setLatitude(stad.latidude);
-      setLongitude(stad.longitude);
-      setPhoto(stad.img);
+      if ("latidude" in stad) {
+        setLatitude(stad.latidude);
+      }
+      if ("longitude" in stad) {
+        setLongitude(stad.longitude);
+      }
+      if ("img" in stad) {
+        setPhoto(stad.img);
+      }
     }
   }, [isSuccess]);
 
@@ -140,9 +146,9 @@ const AppStadDetail = () => {
         {isSuccess && stad.img && (
           <img src={stad.img} alt={stad.name} className="staddetail__img" />
         )}
-        {isSuccess && (
+        {isSuccess && "latidude" in stad && "longitude" in stad && (
           <img
-            src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${stad.longitude},${stad.latidude},9,0/300x300?access_token=pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw`}
+            src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${stad.latidude},${stad.longitude},9,0/300x300?access_token=pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw`}
             className="staddetail__img"
           />
         )}

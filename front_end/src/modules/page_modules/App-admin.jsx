@@ -11,7 +11,7 @@ export default function AppAdmin() {
   const { admin } = useSelector((state) => state.adminState);
   const dispatch = useDispatch();
   const [language, setLanguage] = useState("");
-  const [deleteLanguage, setToDeleteLanguage] = useState(null);
+  const [deleteLanguage, setToDeleteLanguage] = useState("");
   const [addLanguage] = useAddOneLanguageMutation();
   const [removeLanguage] = useRemoveOneLanguageMutation();
   const {
@@ -28,10 +28,9 @@ export default function AppAdmin() {
 
   function handleLanguageRemove(e) {
     e.preventDefault();
-    console.log(deleteLanguage);
-    if (deleteLanguage && deleteLanguage != 0) {
+    if (deleteLanguage.length > 0) {
       removeLanguage(deleteLanguage);
-      setToDeleteLanguage(0);
+      setToDeleteLanguage("");
     }
   }
   return (
@@ -69,7 +68,7 @@ export default function AppAdmin() {
                 value={deleteLanguage}
                 onChange={(e) => setToDeleteLanguage(e.target.value)}
               >
-                <option value="0"></option>
+                <option defaultValue="">Verwijder taal</option>
                 {languages.length > 0 &&
                   languages.map(({ id, name }) => (
                     <option value={id} key={id}>

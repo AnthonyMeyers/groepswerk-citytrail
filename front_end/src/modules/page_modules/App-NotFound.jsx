@@ -13,8 +13,10 @@ const AppNotFound = () => {
   } = useGetAllLandenQuery();
 
   useEffect(() => {
-    if (countries && countries.length > 0) {
-      setCountry(countries[Math.floor(Math.random() * countries.length)]);
+    if (countries && "list" in countries && countries.list.length > 0) {
+      setCountry(
+        countries.list[Math.floor(Math.random() * countries.list.length)]
+      );
       console.log(country);
     }
   }, [countries]);
@@ -31,6 +33,7 @@ const AppNotFound = () => {
             <CountryCard
               country={country.name}
               id={country.id}
+              flag={country.flag}
               className="shrink"
             />
           )}

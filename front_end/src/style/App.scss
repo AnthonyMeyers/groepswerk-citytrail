@@ -93,7 +93,7 @@ a {
       background-color: lightseagreen;
       box-shadow: 3px 3px black;
       cursor: pointer;
-      width: 200px;
+      max-width: 200px;
     }
     &__label {
       display: flex;
@@ -120,6 +120,7 @@ a {
         cursor: pointer;
         outline: none;
         resize: none;
+        height: 150px;
       }
     }
   }
@@ -135,6 +136,9 @@ a {
       &__label {
         display: flex;
         flex-direction: row;
+        &-textarea {
+          flex-direction: column;
+        }
       }
     }
   }

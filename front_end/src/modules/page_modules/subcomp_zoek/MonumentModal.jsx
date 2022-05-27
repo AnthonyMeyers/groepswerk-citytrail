@@ -24,13 +24,13 @@ const MonumentModal = ({ children, monumentId }) => {
   const [monumentImg, setMonumentImg] = useState("");
 
   useEffect(() => {
-    if (monument && monument.name != null && monument.name.length > 0) {
+    if (monument && "name" in monument && monument.name.length > 0) {
       setMonumentName(monument.name);
     }
-    if (monument && monument.description != null) {
+    if (monument && "description" in monument) {
       setDescription(monument.description);
     }
-    if (monument && monument.img != null) {
+    if (monument && "img" in monument) {
       setMonumentImg(monument.img);
     }
   }, [monument]);
@@ -45,13 +45,13 @@ const MonumentModal = ({ children, monumentId }) => {
     });
   }
   return (
-    <div>
+    <>
       <a id="myBtn" onClick={() => setShowModal(!showModal)}>
         {children}
       </a>
 
       {showModal && (
-        <div id="myModal" Name="modal">
+        <div id="myModal" className="modal">
           <div className="modal__content">
             {admin && (
               <div className="admin">
@@ -77,15 +77,13 @@ const MonumentModal = ({ children, monumentId }) => {
                       className="admin__form__label__input"
                     />
                   </label>
-                  <label className="admin__form__label">
+                  <label className="admin__form__label admin__form__label-textarea">
                     Beschrijving
                     <textarea
                       value={description}
                       onInput={(e) => setDescription(e.target.value)}
                       maxLength="500"
                       className="admin__form__label__textarea"
-                      cols="10"
-                      rows="20"
                     />
                   </label>
 
@@ -119,7 +117,7 @@ const MonumentModal = ({ children, monumentId }) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
