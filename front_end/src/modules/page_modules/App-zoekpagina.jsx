@@ -66,20 +66,20 @@ export default function AppZoek() {
           loading={isLoading}
           loader={"../src/images/loading.gif"}
         />
+        {isSuccess && ["isPage"] in countryData && countryData.isPage != 0 && (
+          <div className="search__pagination">
+            <a
+              className="search__pagination__left"
+              onClick={handleBackClick}
+            ></a>
+            <a
+              className="search__pagination__right"
+              onClick={handleNextClick}
+            ></a>
+          </div>
+        )}
         {isSuccess && ["list"] in countryData && countryData.list.length > 0 && (
           <ul className="search__list">
-            {["isPage"] in countryData && countryData.isPage != 0 && (
-              <div className="search__pagination">
-                <a
-                  className="search__pagination__left"
-                  onClick={handleBackClick}
-                ></a>
-                <a
-                  className="search__pagination__right"
-                  onClick={handleNextClick}
-                ></a>
-              </div>
-            )}
             {countryData.list.map(({ id, name, flag }) => {
               return (
                 <li className="search__list__item" key={id}>

@@ -8,14 +8,11 @@
 }
 
 .search {
-  position: relative;
   &__pagination {
-    position: absolute;
     font-size: 30px;
     color: red;
     z-index: 2;
     width: 100%;
-    left: -25px;
 
     display: flex;
     justify-content: space-between;
