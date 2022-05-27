@@ -21,8 +21,8 @@ export default function CountryCard({ country, id, flag }, className) {
         </div>
 
         <div className="card__text">
-          <NavLink to={`/land/${id}`}>
-            <h3 className="card__text__title">{country}</h3>
+          <NavLink to={`/land/${id}`} className="card__text__link">
+            <h3 className="card__text__link__title">{country}</h3>
           </NavLink>
         </div>
         {admin && (
