@@ -55,7 +55,7 @@ const AppDetail = () => {
         }
       }
     }
-  }, [isSuccess, successLanguage, activeLanguages]);
+  }, [isSuccess, successLanguage]);
 
   function handleCitySubmit(e) {
     e.preventDefault(e);
