@@ -16,11 +16,11 @@ const AppStadDetail = () => {
 
   const { admin } = useSelector((state) => state.adminState);
 
-  const [addMonument, setAddMonument] = useState(null);
-  const [cityName, setCityName] = useState(null);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [photo, setPhoto] = useState(null);
+  const [addMonument, setAddMonument] = useState("");
+  const [cityName, setCityName] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [photo, setPhoto] = useState("");
 
   const [addOneMonument] = useAddOneMonumentMutation();
   const [removeOneMonument] = useRemoveOneMonumentMutation();
@@ -143,16 +143,23 @@ const AppStadDetail = () => {
             </form>
           </div>
         )}
-        {isSuccess && stad.img && (
-          <img src={stad.img} alt={stad.name} className="staddetail__img" />
-        )}
-        {isSuccess && "latidude" in stad && "longitude" in stad && (
-          <img
-            src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${stad.latidude},${stad.longitude},9,0/300x300?access_token=pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw`}
-            className="staddetail__img"
-          />
-        )}
-        {stad && stad.monuments.length > 0 && (
+        <div className="staddetail__imgholder">
+          {isSuccess && "img" in stad && (
+            <img
+              src={stad.img}
+              alt={stad.name}
+              className="staddetail__imgholder__img"
+            />
+          )}
+          {isSuccess && "latidude" in stad && "longitude" in stad && (
+            <img
+              src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${stad.latidude},${stad.longitude},9,0/300x300?access_token=pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw`}
+              className="staddetail__imgholder__img"
+            />
+          )}
+        </div>
+        <h3 className="staddetail__subtitle">Monumenten</h3>
+        {stad && "monuments" in stad && stad.monuments.length > 0 && (
           <ul className="staddetail__list">
             {stad.monuments.map(({ id, name }) => (
               <li key={id} className="staddetail__list__item">

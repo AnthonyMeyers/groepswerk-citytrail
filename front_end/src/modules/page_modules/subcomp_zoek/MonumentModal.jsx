@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   useGetOneMonumentQuery,
-  useUpdateOneCityMutation,
   useUpdateOneMonumentMutation,
 } from "../../../data/landenApi";
 import React from "react";
+import { Status } from "../../hooks/main_functions";
 
 const MonumentModal = ({ children, monumentId }) => {
   const { admin } = useSelector((state) => state.adminState);
@@ -46,12 +46,21 @@ const MonumentModal = ({ children, monumentId }) => {
   }
   return (
     <>
-      <a id="myBtn" onClick={() => setShowModal(!showModal)}>
+      <a
+        id="myBtn"
+        onClick={() => setShowModal(!showModal)}
+        className="staddetail__list__item__link"
+      >
         {children}
       </a>
 
       {showModal && (
         <div id="myModal" className="modal">
+          <Status
+            loading={isLoading}
+            error={isError}
+            loader={"../src/images/loading.gif"}
+          />
           <div className="modal__content">
             {admin && (
               <div className="admin">
@@ -99,10 +108,12 @@ const MonumentModal = ({ children, monumentId }) => {
             >
               &times;
             </span>
-            <h3 className="modal__content__title">{monument.name}</h3>
+            {isSuccess && "name" in monument && (
+              <h3 className="modal__content__title">{monument.name}</h3>
+            )}
             {isSuccess && (
               <>
-                {isSuccess && monument.img && monument.img.length > 0 && (
+                {isSuccess && "img" in monument && monument.img.length > 0 && (
                   <img
                     src={monument.img}
                     alt={"foto van " + children}
