@@ -14,7 +14,17 @@ use function Symfony\Component\String\u;
  * @ApiResource(
  *     shortName="Country",
  *     normalizationContext={"groups"={"country:read"}},
- *     denormalizationContext={"groups"={"country:write"}}
+ *     denormalizationContext={"groups"={"country:write"}},
+ *     collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('ROLE_USER')"}
+ *      },
+ *     itemOperations={
+ *          "get",
+ *          "put"={"security"="is_granted('ROLE_USER')"},
+ *          "patch"={"security"="is_granted('ROLE_USER')"},
+ *          "delete"={"security"="is_granted('ROLE_USER')"}
+ *      }
  * )
  * @ORM\Entity(repositoryClass=GwCountryRepository::class)
  */
