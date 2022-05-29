@@ -21,6 +21,7 @@ const AppStadDetail = () => {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [photo, setPhoto] = useState("");
+  const [searchMonument, setSearchMonument] = useState("");
 
   const [addOneMonument] = useAddOneMonumentMutation();
   const [removeOneMonument] = useRemoveOneMonumentMutation();
@@ -158,23 +159,39 @@ const AppStadDetail = () => {
             />
           )}
         </div>
-        <h3 className="staddetail__subtitle">Monumenten</h3>
+
         {stad && "monuments" in stad && stad.monuments.length > 0 && (
-          <ul className="staddetail__list">
-            {stad.monuments.map(({ id, name }) => (
-              <li key={id} className="staddetail__list__item">
-                <MonumentModal key={id} monumentId={id}>
-                  {name}
-                </MonumentModal>
-                {admin && (
-                  <a
-                    className="staddetail__list__item__remove"
-                    onClick={() => removeOneMonument(id)}
-                  ></a>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div className="monumenten">
+            <h3 className="staddetail__monumenten__subtitle">Monumenten</h3>
+            <label className="staddetail__monumenten__label">
+              Zoek een monument
+              <input
+                type="text"
+                value={searchMonument}
+                onInput={(e) => setSearchMonument(e.target.value)}
+                className="staddetail__monumenten__label__inputtext"
+              />
+            </label>
+            <ul className="staddetail__monumenten__list">
+              {stad.monuments
+                .filter((monument) =>
+                  monument.name.toLowerCase().startsWith(searchMonument)
+                )
+                .map(({ id, name }) => (
+                  <li key={id} className="staddetail__monumenten__list__item">
+                    <MonumentModal key={id} monumentId={id}>
+                      {name}
+                    </MonumentModal>
+                    {admin && (
+                      <a
+                        className="staddetail__monumenten__list__item__remove"
+                        onClick={() => removeOneMonument(id)}
+                      ></a>
+                    )}
+                  </li>
+                ))}
+            </ul>
+          </div>
         )}
         <NavLink to={`/land/${landId}`}>
           <button>Ga terug</button>
