@@ -36,13 +36,13 @@ export default function AppAdmin() {
   }
   function handleLoginClick() {
     axios
-      .post("https://127.0.0.1:8000/login", {
-        email: "test@test.be",
+      .post("https://127.0.0.1:8000/api/login_check", {
+        username: "test@test.be",
         password: "test",
       })
-      .then((response) => console.log(response.headers))
+      .then((response) => console.log(response.data.token))
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }
   return (
