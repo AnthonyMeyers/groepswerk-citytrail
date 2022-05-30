@@ -64,7 +64,7 @@ const api = createApi({
     }),
     //Get alle talen
     getAllLanguages: builder.query({
-      query: () => `/languages.json`,
+      query: () => `/languages.json?pagination=false`,
       providesTags: ["TALEN"],
     }),
     //Get 1 land
@@ -205,7 +205,7 @@ const api = createApi({
         method: "PUT",
         body: { id, name, flag },
       }),
-      invalidatesTags: ["LANDEN"],
+      invalidatesTags: ["LANDEN", "TALEN"],
     }),
     //Voeg taal toe aan land
     changeLanguagesCity: builder.mutation({
@@ -262,7 +262,6 @@ export default api;
 export const {
   useGetAllLandenQuery,
   useGetOneLandQuery,
-  useGetStedenLandQuery,
   useGetOneStadQuery,
   useGetOneMonumentQuery,
   useGetAllLanguagesQuery,

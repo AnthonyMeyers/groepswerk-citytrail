@@ -24,6 +24,7 @@ const AppDetail = () => {
   const [activeLanguages, setActiveLanguages] = useState([]);
   const [language, setLanguage] = useState("");
   const [changeLanguages] = useChangeLanguagesCityMutation();
+  const [searchCity, setSearchCity] = useState("");
 
   const {
     data: land,
@@ -55,7 +56,7 @@ const AppDetail = () => {
         }
       }
     }
-  }, [isSuccess, successLanguage]);
+  }, [isSuccess, successLanguage, activeLanguages]);
 
   function handleCitySubmit(e) {
     e.preventDefault(e);
@@ -202,27 +203,43 @@ const AppDetail = () => {
           </div>
         )}
       </div>
-      <h3>Geregistreerde steden</h3>
-      <div className="detail__cities">
-        {land &&
-          land.cities.length > 0 &&
-          land.cities.map(({ id, name }, i) => (
-            <div key={id} className="detail__cities__city">
-              <NavLink
-                to={`/land/${land.id}/stad/${id}`}
-                className="detail__cities__city__link"
-              >
-                <h4 className="detail__cities__city__link__title">{name}</h4>
-              </NavLink>
-              {admin && (
-                <a
-                  className="detail__cities__city__remove"
-                  onClick={() => removeCity(id)}
-                ></a>
-              )}
-            </div>
-          ))}
-      </div>
+
+      {land && "cities" in land && land.cities.length > 0 && (
+        <div className="detail__cities">
+          <h3 className="detail__cities__title">Geregistreerde steden</h3>
+          <label className="detail__cities__label">
+            Zoek een stad
+            <input
+              type="text"
+              value={searchCity}
+              onInput={(e) => setSearchCity(e.target.value)}
+              className="detail__cities__label__inputtext"
+            />
+          </label>
+          <ul className="detail__cities__citylist">
+            {land.cities
+              .filter((city) => city.name.toLowerCase().startsWith(searchCity))
+              .map(({ id, name }) => (
+                <li key={id} className="detail__cities__citylist__city">
+                  <NavLink
+                    to={`/land/${land.id}/stad/${id}`}
+                    className="detail__cities__citylist__city__link"
+                  >
+                    <h4 className="detail__cities__citylist__city__link__title">
+                      {name}
+                    </h4>
+                  </NavLink>
+                  {admin && (
+                    <a
+                      className="detail__cities__citylist__city__remove"
+                      onClick={() => removeCity(id)}
+                    ></a>
+                  )}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
       {!loadingLand && (
         <NavLink to={`/landen`}>
           <button className="detail__button">Ga terug</button>
