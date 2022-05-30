@@ -16,7 +16,17 @@ use function Symfony\Component\String\u;
  * @ApiResource(
  *     shortName="City",
  *     normalizationContext={"groups"={"city:read"}},
- *     denormalizationContext={"groups"={"city:write"}}
+ *     denormalizationContext={"groups"={"city:write"}},
+ *     collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('ROLE_USER')"}
+ *      },
+ *     itemOperations={
+ *          "get",
+ *          "put"={"security"="is_granted('ROLE_USER')"},
+ *          "patch"={"security"="is_granted('ROLE_USER')"},
+ *          "delete"={"security"="is_granted('ROLE_USER')"}
+ *      }
  * )
  * @ORM\Entity(repositoryClass=GwCityRepository::class)
  * @ApiFilter(SearchFilter::class, properties={"name":"partial"})
