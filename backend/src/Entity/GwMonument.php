@@ -12,7 +12,17 @@ use function Symfony\Component\String\u;
  * @ApiResource(
  *     shortName="Monument",
  *     normalizationContext={"groups"={"mon:read"}},
- *     denormalizationContext={"groups"={"mon:write"}}
+ *     denormalizationContext={"groups"={"mon:write"}},
+ *     collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('ROLE_USER')"}
+ *      },
+ *     itemOperations={
+ *          "get",
+ *          "put"={"security"="is_granted('ROLE_USER')"},
+ *          "patch"={"security"="is_granted('ROLE_USER')"},
+ *          "delete"={"security"="is_granted('ROLE_USER')"}
+ *      }
  * )
  * @ORM\Entity(repositoryClass=GwMonumentRepository::class)
  */
