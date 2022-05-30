@@ -14,10 +14,12 @@ export default function AppHeader() {
   return (
     <>
       <header className="header">
+        <img src="./src/images/old_ruins.jpg" className="header__img" />
         <h1 className="header__title">Citytrail</h1>
+
         <a
           onClick={handleMobileClick}
-          class={
+          className={
             menu ? "header__mobile header__mobile-active" : "header__mobile "
           }
         ></a>

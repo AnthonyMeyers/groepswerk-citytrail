@@ -1,27 +1,201 @@
-.team {
-  &__article {
-    flex-direction: row;
-  }
-}
-
 .home {
   &__article {
     &__textblock {
       line-height: 20px;
-      margin: 20px 0;
+      margin: 0px 0 20px;
+    }
+  }
+}
+
+.search {
+  &__pagination {
+    font-size: 30px;
+    z-index: 2;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    & a {
+      cursor: pointer;
+    }
+    &__left {
+      &:after {
+        content: "\ea40";
+        font-family: "icomoon";
+      }
+    }
+    &__right {
+      &:after {
+        content: "\ea3c";
+        font-family: "icomoon";
+      }
+    }
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    &__item {
+      flex: 1 1 250px;
+      max-width: 300px;
+    }
+  }
+}
+
+.detail {
+  &__country {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    &__languages {
+      &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        &__item {
+          position: relative;
+          &__remove {
+            position: absolute;
+            margin-right: 30px;
+            position: relative;
+            top: 15%;
+            right: 0px;
+            padding: 5px;
+            cursor: pointer;
+            &::after {
+              content: "\ea0b";
+              font-size: 20px;
+              font-family: "icomoon";
+              color: lightseagreen;
+            }
+          }
+        }
+      }
+    }
+    &__img {
+      display: block;
+      border: 3px solid black;
+      border-radius: 20px;
+      max-width: 300px;
+      margin-bottom: 20px;
+      width: 100%;
+      aspect-ratio: 1/1;
+    }
+  }
+  &__cities {
+    margin-bottom: 20px;
+    &__label {
+      display: block;
+      margin-bottom: 10px;
+      color: goldenrod;
+      &__inputtext {
+        margin-left: 20px;
+        background-color: lightseagreen;
+        border: 1px solid black;
+        border-radius: 10px;
+      }
+    }
+    &__citylist {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      &__city {
+        position: relative;
+        &__link {
+          margin-right: 15px;
+          &__title {
+            display: inline;
+            font-size: 20px;
+          }
+        }
+        &__remove {
+          padding: 0 10px;
+          cursor: pointer;
+          &:after {
+            content: "\e9ad";
+            font-size: 20px;
+            font-family: "icomoon";
+            color: lightseagreen;
+          }
+        }
+      }
+    }
+  }
+}
+.staddetail {
+  &__imgholder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    &__img {
+      display: block;
+      width: 300px;
+      aspect-ratio: 1/1;
+      &:nth-of-type(2) {
+        border-radius: 50%;
+        outline: 1px solid black;
+        outline-offset: -70px;
+      }
+    }
+  }
+
+  &__monumenten {
+    &__subtitle {
+    }
+    &__label {
+      display: block;
+      margin-bottom: 10px;
+      color: goldenrod;
+      &__inputtext {
+        margin-left: 20px;
+        background-color: lightseagreen;
+        border: 1px solid black;
+        border-radius: 10px;
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+      &__item {
+        margin-right: 10px;
+        &__link {
+          margin-right: 20px;
+          cursor: pointer;
+        }
+        &__remove {
+          cursor: pointer;
+          margin-left: 10px;
+          padding: 0 5px;
+          &:after {
+            content: "\e9ad";
+            font-size: 20px;
+            font-family: "icomoon";
+            color: lightseagreen;
+          }
+        }
+      }
     }
   }
 }
 
 .team {
+  display: flex;
+  flex-direction: column;
   &__article {
-    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     &__imgholder {
       position: relative;
-      width: 300px;
+      width: 25%;
+      min-width: 250px;
       border-radius: 15px;
       overflow: hidden;
       -webkit-filter: grayscale(100%);
@@ -62,6 +236,13 @@
 }
 
 @media screen and (min-width: 600px) {
+  .search {
+    &__list {
+      &__item {
+      }
+    }
+  }
+
   .team {
     &__article {
       flex-direction: row;

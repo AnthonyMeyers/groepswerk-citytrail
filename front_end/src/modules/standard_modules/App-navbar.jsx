@@ -8,9 +8,6 @@ import {
 } from "react-router-dom";
 
 export default function AppNavbar({ className, onClickItem }) {
-  function handleGeneralClick(e) {
-    console.log(e);
-  }
   return (
     <>
       <div
@@ -33,11 +30,11 @@ export default function AppNavbar({ className, onClickItem }) {
           </li>
           <li className="navbar__listitem">
             <NavLink
-              to={"/zoek"}
+              to={"/landen"}
               onClick={onClickItem}
               className="navbar__listitem__link"
             >
-              Zoek
+              landen
             </NavLink>
           </li>
           <li className="navbar__listitem">
@@ -63,13 +60,3 @@ export default function AppNavbar({ className, onClickItem }) {
     </>
   );
 }
-
-/*
-  useEffect(() => {
-    window.addEventListener("scroll", handleScrollBar);
-    return () => window.removeEventListener("scroll", handleScrollBar);
-  }, []);
-  function handleScrollBar() {
-    window.scrollY > 47.5 ? setTopbar(true) : setTopbar(false);
-  }
-*/

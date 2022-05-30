@@ -1,7 +1,8 @@
 //Page header
 .header {
-  background-image: url("./src/images/old_ruins.jpg");
+  //background-image: url("./src/images/old_ruins.jpg");
   height: 50px;
+  position: relative;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -10,6 +11,15 @@
   align-items: center;
   padding: 0 0 0 20px;
   justify-content: space-between;
+  overflow: hidden;
+  &__img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
   &__title {
     color: white;
     font-size: 20px;
@@ -27,10 +37,10 @@
       content: "\e9bd";
       font-family: "icomoon";
       color: white;
-      transition: 2s;
+      transition: 0.5s;
     }
     &-active:after {
-      transition: 2s;
+      transition: 0.5s;
       transform: rotate(90deg);
     }
   }
@@ -71,12 +81,12 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   &__text {
     font-size: 10px;
+    margin: 10px;
     &__symbol {
       font-size: 8px;
     }
