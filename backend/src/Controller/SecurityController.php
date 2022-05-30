@@ -22,9 +22,9 @@ class SecurityController extends AbstractController
             ], 400);
         }
 
-        return new Response(null, 204, [
-            'Location' => $iriConverter->getIriFromItem($this->getUser())
-        ]);
+        return $this->json([
+                'user' => $this->getUser() ? $this->getUser()->getId() : null]
+        );
     }
 
     /**

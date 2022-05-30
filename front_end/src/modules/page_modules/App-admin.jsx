@@ -1,6 +1,7 @@
 import { changeState } from "../../data/admin";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import axios from "axios";
 import {
   useAddOneLanguageMutation,
   useRemoveOneLanguageMutation,
@@ -33,12 +34,24 @@ export default function AppAdmin() {
       setToDeleteLanguage("");
     }
   }
+  function handleLoginClick() {
+    axios
+      .post("https://127.0.0.1:8000/login", {
+        email: "test@test.be",
+        password: "test",
+      })
+      .then((response) => console.log(response.headers))
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <>
       <p>set admin</p>
       <button onClick={() => dispatch(changeState())}>
         activate admin {admin ? "on" : "off"}
       </button>
+      <button onClick={handleLoginClick}>login</button>
       {admin && (
         <div className="admin">
           <form className="admin__form" onSubmit={handleLanguageSubmit}>
