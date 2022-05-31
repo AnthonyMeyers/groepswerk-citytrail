@@ -36,7 +36,7 @@ export default function AppAdmin() {
   }
   function handleLoginClick() {
     axios
-      .post("https://127.0.0.1:8000/api/login_check", {
+      .post("https://wdev2.be/fs_stijn/eindwerk/api/login_check", {
         username: "test@test.be",
         password: "test",
       })

@@ -7,7 +7,7 @@ const placeholderFlag = "./src/images/unknown_flag.jpg";
 const api = createApi({
   reducerPath: "landenApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://127.0.0.1:8000/api",
+    baseUrl: "https://wdev2.be/fs_stijn/eindwerk/api",
   }),
   tagTypes: ["LANDEN", "STEDEN", "MONUMENTEN", "TALEN"],
   endpoints: (builder) => ({
