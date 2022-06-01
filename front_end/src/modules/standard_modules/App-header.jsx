@@ -14,7 +14,7 @@ export default function AppHeader() {
   return (
     <>
       <header className="header">
-        <img src="./src/images/old_ruins.jpg" className="header__img" />
+        <img src="/fs_anthonym/groepswerk/images/old_ruins.jpg" className="header__img" />
         <h1 className="header__title">Citytrail</h1>
 
         <a

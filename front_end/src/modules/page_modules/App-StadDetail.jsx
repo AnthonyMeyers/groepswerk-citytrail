@@ -1,8 +1,8 @@
 import { useLayoutEffect, useState, useEffect } from "react";
-
+import mapboxgl from "mapbox-gl/dist/mapbox-gl.js"
 import MonumentModal from "./subcomp_zoek/MonumentModal";
 import { useParams, NavLink } from "react-router-dom";
-import { Status } from "../hooks/main_functions";
+import { Status, Messagebar } from "../hooks/main_functions";
 import {
   useGetOneStadQuery,
   useAddOneMonumentMutation,
@@ -13,20 +13,19 @@ import { useSelector } from "react-redux";
 
 const AppStadDetail = () => {
   const { id: landId, stadId } = useParams();
-
   const { admin } = useSelector((state) => state.adminState);
-
   const [addMonument, setAddMonument] = useState("");
   const [cityName, setCityName] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [photo, setPhoto] = useState("");
   const [searchMonument, setSearchMonument] = useState("");
-
   const [addOneMonument] = useAddOneMonumentMutation();
   const [removeOneMonument] = useRemoveOneMonumentMutation();
   const [updateCity] = useUpdateOneCityMutation();
+  const [errorHandler, setErrorHandler] = useState("")
 
+  //Laad een stad op
   const {
     data: stad,
     isLoading,
@@ -34,16 +33,23 @@ const AppStadDetail = () => {
     isSuccess,
   } = useGetOneStadQuery(stadId);
 
+  //Voegt een monument toe
   function handleAddMonumentSubmit(e) {
     e.preventDefault();
-    if (addMonument.length >= 2) {
+    setErrorHandler("");
+    if (addMonument.length >= 2 && addMonument.length <= 20) {
       addOneMonument({ cityId: stadId, name: addMonument });
       setAddMonument("");
-    }
+    }else {setErrorHandler("Een monument kan 2 tot en met 20 tekens bevatten.")}
   }
 
+  //Wijzig de data van een stad
   function handleCitySubmit(e) {
     e.preventDefault();
+    setErrorHandler("");
+    if(cityName.length >= 2 && cityName.length <= 20){
+      if(latitude != isNaN && latitude.length >0 && longitude.length > 0 && latitude <= 90 && latitude >= -90 && longitude <= 180 && longitude >= -180){
+        console.log(latitude)
     updateCity({
       id: stadId,
       name: cityName,
@@ -51,8 +57,11 @@ const AppStadDetail = () => {
       longitude,
       img: photo,
     });
+  }else {setErrorHandler("Latitude gaat van -90 tot en met 90 & longitude van -180 tot 180.")}
+  } else{setErrorHandler("Een stad kan vanaf 2 tot en met 20 tekens bevatten. ")}
   }
 
+  //Laad begindata in
   useEffect(() => {
     if (isSuccess) {
       setCityName(stad.name);
@@ -68,6 +77,37 @@ const AppStadDetail = () => {
     }
   }, [isSuccess]);
 
+  //Regel mapbox
+  useLayoutEffect(() => {
+    if (stad && "longitude" in stad && "latidude" in stad) {
+      const longTest = parseFloat(stad.longitude) * 1;
+      const latTest = parseFloat(stad.latidude) * 1;
+
+      const long = isNaN(longTest)
+        ? 0
+        : longTest < -180
+        ? -180
+        : longTest > 180
+        ? 180
+        : longTest;
+      const lat = isNaN(latTest)
+        ? 0
+        : latTest < -90
+        ? -90
+        : latTest > 90
+        ? 90
+        : latTest;
+
+    mapboxgl.accessToken =
+    "pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw";
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/dark-v10',
+        center:  [ long,lat ],
+        zoom: 9
+    });
+}}, [stad]);
+
   return (
     <>
       <section className="staddetail">
@@ -77,10 +117,10 @@ const AppStadDetail = () => {
         <Status
           error={error}
           loading={isLoading}
-          loader={"./src/images/loading.gif"}
+          loader={"/fs_anthonym/groepswerk/images/loading.gif"}
         />
 
-        {admin && (
+        {admin && (<>
           <div className="admin">
             <form onSubmit={handleCitySubmit} className="admin__form">
               <label className="admin__form__label">
@@ -89,14 +129,13 @@ const AppStadDetail = () => {
                   type="text"
                   value={cityName}
                   onInput={(e) => setCityName(e.target.value)}
-                  minLength="2"
-                  maxLength="20"
+                  maxLength="30"
                   required
                   className="admin__form__label__input"
                 />
               </label>
               <label className="admin__form__label">
-                Latitude
+                Longitude
                 <input
                   type="text"
                   value={longitude}
@@ -105,7 +144,7 @@ const AppStadDetail = () => {
                 />
               </label>
               <label className="admin__form__label">
-                Longitude
+                Latitude
                 <input
                   type="text"
                   value={latitude}
@@ -133,8 +172,7 @@ const AppStadDetail = () => {
                   type="text"
                   value={addMonument}
                   onInput={(e) => setAddMonument(e.target.value)}
-                  minLength="2"
-                  maxLength="20"
+                  maxLength="30"
                   className="admin__form__label__input"
                 />
               </label>
@@ -143,6 +181,8 @@ const AppStadDetail = () => {
               </button>
             </form>
           </div>
+         {errorHandler.length > 0 && <Messagebar>{errorHandler}</Messagebar>}
+         </>
         )}
         <div className="staddetail__imgholder">
           {isSuccess && "img" in stad && (
@@ -152,12 +192,7 @@ const AppStadDetail = () => {
               className="staddetail__imgholder__img"
             />
           )}
-          {isSuccess && "latidude" in stad && "longitude" in stad && (
-            <img
-              src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${stad.latidude},${stad.longitude},9,0/300x300?access_token=pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw`}
-              className="staddetail__imgholder__img"
-            />
-          )}
+        <div id="map"  className="staddetail__imgholder__img"></div>
         </div>
 
         {stad && "monuments" in stad && stad.monuments.length > 0 && (
@@ -193,7 +228,7 @@ const AppStadDetail = () => {
             </ul>
           </div>
         )}
-        <NavLink to={`/land/${landId}`}>
+        <NavLink to={`/fs_anthonym/groepswerk/land/${landId}`}>
           <button>Ga terug</button>
         </NavLink>
       </section>
@@ -203,8 +238,8 @@ const AppStadDetail = () => {
 
 export default AppStadDetail;
 
-/*
 
+/*
   useLayoutEffect(() => {
     if (stad && stad.id > 0 && stad.longitude && stad.latidude) {
       const longTest = parseFloat(stad.longitude) * 1;
@@ -229,7 +264,7 @@ export default AppStadDetail;
       const map = new mapboxgl.Map({
         container: "map", // container ID
         style: "mapbox://styles/mapbox/streets-v11", // style URL
-        center: [long, lat], // starting position [lng, lat]
+        center: [long.toString(), lat.toString()], // starting position [lng, lat]
         zoom: 9, // starting zoom
       });
       map.on("load", () => {
@@ -244,11 +279,16 @@ export default AppStadDetail;
         });
       });
     }
-  }, [stad]);
+  }, [stad]);*/
+    /*{stad && stad.longitude != null && stad.latidude != null && (
+          
+        )}*/
 
 
-
-          {stad && stad.longitude != null && stad.latidude != null && (
-          <div id="map"></div>
-        )}
-  */
+        /*{isSuccess && "latidude" in stad && "longitude" in stad && (
+          <img
+            src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${stad.latidude},${stad.longitude},9,0/300x300?access_token=pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw`}
+            className="staddetail__imgholder__img"
+          />
+        )}*/
+  

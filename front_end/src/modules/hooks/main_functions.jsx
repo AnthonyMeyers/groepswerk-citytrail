@@ -6,3 +6,9 @@ export function Status({ error, loading, loader }) {
     </>
   );
 }
+
+export function Messagebar({errorhandler, children}){
+  return <>
+{<p className="error">{children}</p>}
+  </>
+}

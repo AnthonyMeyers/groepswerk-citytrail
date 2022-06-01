@@ -1,5 +1,5 @@
 export default function Appteam() {
-  function handleTogglemodalClick() {}
+//Vaste pagina
   return (
     <>
       <section className="team">
@@ -8,7 +8,7 @@ export default function Appteam() {
           <div className="team__article__imgholder">
             <img
               className="team__article__imgholder__img"
-              src="../src/images/gyssens.jpg"
+              src="/fs_anthonym/groepswerk/images/gyssens.jpg"
               alt="Stijn Gyssens"
             />
             <span className="team__article__imgholder__name">
@@ -32,7 +32,7 @@ export default function Appteam() {
             <img
               className="team__article__imgholder__img"
               alt="Anthony Meyers"
-              src="../src/images/anthony.jpg"
+              src="/fs_anthonym/groepswerk/images/anthony.jpg"
             />
             <span className="team__article__imgholder__name">
               Anthony Meyers

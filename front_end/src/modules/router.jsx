@@ -10,21 +10,23 @@ import AppStadDetail from "./page_modules/App-StadDetail";
 import AppNotFound from "./page_modules/App-NotFound";
 
 export default function Routing() {
+
+  //Regelt alle routes in combinatie met navlink voor een vloeiende gebruikservaring
   return (
     <>
       <Routes>
-        <Route exact path="/admin" element={<AppAdmin />} />
-        <Route exact path="/landen" element={<AppZoek />} />
-        <Route exact path="/land/:id" element={<AppDetail />} />
+        <Route exact path="fs_anthonym/groepswerk/admin" element={<AppAdmin />} />
+        <Route exact path="fs_anthonym/groepswerk/landen" element={<AppZoek />} />
+        <Route exact path="fs_anthonym/groepswerk/land/:id" element={<AppDetail />} />
         <Route
           exact
-          path="/land/:id/stad/:stadId"
+          path="fs_anthonym/groepswerk/land/:id/stad/:stadId"
           element={<AppStadDetail />}
         />
-        <Route exact path="/home" element={<AppHome />} />
-        <Route exact path="/team" element={<AppTeam />} />
-        <Route exact path="/" element={<AppHome />} />
-        <Route path="*" element={<AppNotFound />} />
+        <Route exact path="fs_anthonym/groepswerk/home" element={<AppHome />} />
+        <Route exact path="fs_anthonym/groepswerk/team" element={<AppTeam />} />
+        <Route exact path="fs_anthonym/groepswerk/" element={<AppHome />} />
+        <Route path="fs_anthonym/groepswerk/*" element={<AppNotFound />} />
       </Routes>
     </>
   );

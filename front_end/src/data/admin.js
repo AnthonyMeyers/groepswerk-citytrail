@@ -1,13 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { admin: false };
+const initialState = { admin: false, key: "" };
 
+//De admin moet steeds inloggen bij gebruik
 const adminSlice = createSlice({
   name: "adminState",
   initialState,
   reducers: {
-    changeState(state) {
-      state.admin = !state.admin;
+    changeState(state, {payload: {key}}) {
+      if(key.length > 0 && state.admin === false){
+      state.admin = true;
+      state.key = key
+    }else{
+      state.admin = false;
+      state.key = "";
+    }
     },
   },
 });

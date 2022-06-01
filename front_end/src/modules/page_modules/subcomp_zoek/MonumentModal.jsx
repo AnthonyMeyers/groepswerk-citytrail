@@ -5,12 +5,12 @@ import {
   useUpdateOneMonumentMutation,
 } from "../../../data/landenApi";
 import React from "react";
-import { Status } from "../../hooks/main_functions";
+import { Status, Messagebar } from "../../hooks/main_functions";
 
 const MonumentModal = ({ children, monumentId }) => {
   const { admin } = useSelector((state) => state.adminState);
   const [updateMonument] = useUpdateOneMonumentMutation();
-
+  const [errorHandler, setErrorHandler] = useState("")
   const {
     data: monument,
     isLoading,
@@ -37,12 +37,17 @@ const MonumentModal = ({ children, monumentId }) => {
 
   function handleSubmitClick(e) {
     e.preventDefault();
+    setErrorHandler("");
+    if(monumentName.length >=2 && monumentName.length <= 20){
+      if(description.length >= 5 && description.length <=500){
     updateMonument({
       id: monument.id,
       name: monumentName,
       description,
       img: monumentImg,
     });
+  } else{setErrorHandler("Een beschrijving kan vanaf 5 tot en met 500 tekens bevatten.")}
+  }  else{setErrorHandler("Een monument kan vanaf 2 tot en met 20 tekens bevatten.")}
   }
   return (
     <>
@@ -56,13 +61,8 @@ const MonumentModal = ({ children, monumentId }) => {
 
       {showModal && (
         <div id="myModal" className="modal">
-          <Status
-            loading={isLoading}
-            error={isError}
-            loader={"../src/images/loading.gif"}
-          />
           <div className="modal__content">
-            {admin && (
+            {admin && (<>
               <div className="admin">
                 <form onSubmit={handleSubmitClick} className="admin__form">
                   <label className="admin__form__label">
@@ -71,8 +71,7 @@ const MonumentModal = ({ children, monumentId }) => {
                       type="text"
                       value={monumentName}
                       onInput={(e) => setMonumentName(e.target.value)}
-                      minLength="2"
-                      maxLength="20"
+                      maxLength="30"
                       required
                       className="admin__form__label__input"
                     />
@@ -100,19 +99,29 @@ const MonumentModal = ({ children, monumentId }) => {
                     Wijzig monument
                   </button>
                 </form>
+                
               </div>
-            )}
+              {errorHandler.length > 0 && <Messagebar>{errorHandler}</Messagebar>}
+            </>)}
             <span
               className="modal__content__close"
               onClick={() => setShowModal(false)}
             >
               &times;
             </span>
+            <Status
+            loading={isLoading}
+            error={isError}
+            loader={"/fs_anthonym/groepswerk/images/loading.gif"}
+          />
             {isSuccess && "name" in monument && (
               <h3 className="modal__content__title">{monument.name}</h3>
             )}
             {isSuccess && (
               <>
+                <p className="modal__content__description">
+                  {monument.description}
+                </p>
                 {isSuccess && "img" in monument && monument.img.length > 0 && (
                   <img
                     src={monument.img}
@@ -120,9 +129,7 @@ const MonumentModal = ({ children, monumentId }) => {
                     className="modal__content__photo"
                   />
                 )}
-                <p className="modal__content__description">
-                  {monument.description}
-                </p>
+
               </>
             )}
           </div>

@@ -35,10 +35,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-
     &__item {
       flex: 1 1 250px;
       max-width: 300px;
+
+
     }
   }
 }
@@ -49,12 +50,15 @@
     flex-wrap: wrap;
     gap: 20px;
     &__languages {
+      margin-bottom: 20px;
       &__list {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
         &__item {
+          
           position: relative;
+          
           &__remove {
             position: absolute;
             margin-right: 30px;
@@ -75,22 +79,22 @@
     }
     &__img {
       display: block;
-      border: 3px solid black;
       border-radius: 20px;
       max-width: 300px;
       margin-bottom: 20px;
       width: 100%;
-      aspect-ratio: 1/1;
     }
   }
   &__cities {
     margin-bottom: 20px;
     &__label {
-      display: block;
-      margin-bottom: 10px;
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      width: 150px;
+      margin-bottom: 20px;
       color: goldenrod;
       &__inputtext {
-        margin-left: 20px;
         background-color: lightseagreen;
         border: 1px solid black;
         border-radius: 10px;
@@ -123,6 +127,13 @@
     }
   }
 }
+
+#map{
+  border-radius: 20px;
+  max-width: 300px;
+  max-height: 300px;
+}
+
 .staddetail {
   &__imgholder {
     display: flex;
@@ -132,8 +143,9 @@
     margin-bottom: 20px;
     &__img {
       display: block;
-      width: 300px;
+      max-width: 300px;
       aspect-ratio: 1/1;
+      width: 100%;
       &:nth-of-type(2) {
         border-radius: 50%;
         outline: 1px solid black;
@@ -146,11 +158,13 @@
     &__subtitle {
     }
     &__label {
-      display: block;
-      margin-bottom: 10px;
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      width: 150px;
+      margin-bottom: 20px;
       color: goldenrod;
       &__inputtext {
-        margin-left: 20px;
         background-color: lightseagreen;
         border: 1px solid black;
         border-radius: 10px;

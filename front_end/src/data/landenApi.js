@@ -1,21 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const placeholderImgStad = "./src/images/placeholder_city.webp";
-const placeholderImgMon = "./src/images/monument_placeholder.webp";
-const placeholderFlag = "./src/images/unknown_flag.jpg";
+const placeholderImgStad = "fs_anthonym/groepswerk/images/placeholder_city.webp";
+const placeholderImgMon = "fs_anthonym/groepswerk/images/monument_placeholder.webp";
+const placeholderFlag = "fs_anthonym/groepswerk/images/unknown_flag.jpg";
 
 const api = createApi({
   reducerPath: "landenApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://127.0.0.1:8000/api",
+    baseUrl: "https://wdev2.be",
   }),
   tagTypes: ["LANDEN", "STEDEN", "MONUMENTEN", "TALEN"],
   endpoints: (builder) => ({
     //Get alle landen
     getAllLanden: builder.query({
-      query: (page = "/api/countries.jsonld?page=1") => {
-        page = page.toString().substr(page.toString().indexOf("?page=" + 6));
-        return `/countries.jsonld?page=${page}`;
+      query: (page = "/fs_stijn/eindwerk/api/countries.jsonld?page=1") => {
+        console.log(page);
+        if(page.toString().indexOf("?page=") > -1){
+        page = page.toString().substr(page.toString().indexOf("?page=") + 6);
+      }
+        return `/fs_stijn/eindwerk/api/countries.jsonld?page=${page}`;
       },
       providesTags: ["LANDEN"],
       transformResponse: (response) => {
@@ -32,7 +35,7 @@ const api = createApi({
             isPage = response["hydra:view"]["@id"]
               .toString()
               .substr(
-                response["hydra:view"]["@id"].toString().indexOf("?page=" + 6)
+                response["hydra:view"]["@id"].toString().indexOf("?page=")+ 6
               );
           }
         }
@@ -41,19 +44,7 @@ const api = createApi({
           nextPage = response["hydra:view"]["hydra:next"];
         }
 
-        const list = response["hydra:member"].sort((a, b) => {
-          let fa = a.name.toLowerCase(),
-            fb = b.name.toLowerCase();
-
-          if (fa < fb) {
-            return -1;
-          }
-          if (fa > fb) {
-            return 1;
-          }
-          return 0;
-        });
-
+        const list = response["hydra:member"]
         return {
           list,
           lastPage,
@@ -64,42 +55,54 @@ const api = createApi({
     }),
     //Get alle talen
     getAllLanguages: builder.query({
-      query: () => `/languages.json?pagination=false`,
+      query: () => `/fs_stijn/eindwerk/api/languages.json?pagination=false`,
+      transformResponse: (response) => response.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      }),
       providesTags: ["TALEN"],
     }),
     //Get 1 land
     getOneLand: builder.query({
-      query: (id) => `/countries/${id}.jsonld`,
+      query: (id) => `/fs_stijn/eindwerk/api/countries/${id}.jsonld`,
       providesTags: ["LANDEN", "TALEN"],
     }),
 
     //Get 1 stad
     getOneStad: builder.query({
-      query: (id) => ({ url: `/cities/${id}.json` }),
+      query: (id) => ({ url: `/fs_stijn/eindwerk/api/cities/${id}.json` }),
       providesTags: ["STEDEN"],
     }),
     //Get 1 monument
     getOneMonument: builder.query({
-      query: (id) => ({ url: `/monuments/${id}.json` }),
+      query: (id) => ({ url: `/fs_stijn/eindwerk/api/monuments/${id}.json` }),
       providesTags: ["MONUMENTEN"],
     }),
     //Post een land
     addOneLand: builder.mutation({
       query: (name) => ({
-        url: `/countries.json`,
+        url: `/fs_stijn/eindwerk/api/countries.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
         },
         method: "POST",
-        body: { name, flag: placeholderFlag, languages: [] },
+        body: { name, flag: placeholderFlag, languages: []},
       }),
       invalidatesTags: ["LANDEN"],
     }),
     //Post een taal
     addOneLanguage: builder.mutation({
       query: (name) => ({
-        url: `/languages.json`,
+        url: `/fs_stijn/eindwerk/api/languages.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -112,10 +115,9 @@ const api = createApi({
     //Post een stad
     addOneStad: builder.mutation({
       query: ({ countryId, name }) => ({
-        url: `/cities.json`,
+        url: `/fs_stijn/eindwerk/api/cities.json`,
         headers: {
           "Content-Type": "application/json",
-          accept: "application/json",
         },
         method: "POST",
         body: {
@@ -131,7 +133,7 @@ const api = createApi({
     //Post een monument
     addOneMonument: builder.mutation({
       query: ({ cityId, name }) => ({
-        url: `/monuments.json`,
+        url: `/fs_stijn/eindwerk/api/monuments.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -145,7 +147,7 @@ const api = createApi({
     //Delete een land
     removeOneLand: builder.mutation({
       query: (id) => ({
-        url: `/countries/${id}.json`,
+        url: `/fs_stijn/eindwerk/api/countries/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -158,7 +160,7 @@ const api = createApi({
     //DELETE een taal
     removeOneLanguage: builder.mutation({
       query: (id) => ({
-        url: `/languages/${id}.json`,
+        url: `/fs_stijn/eindwerk/api/languages/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -171,7 +173,7 @@ const api = createApi({
     //Delete een stad
     removeOneCity: builder.mutation({
       query: (id) => ({
-        url: `/cities/${id}.json`,
+        url: `/fs_stijn/eindwerk/api/cities/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -184,7 +186,7 @@ const api = createApi({
     //Delete een monument
     removeOneMonument: builder.mutation({
       query: (id) => ({
-        url: `/monuments/${id}.json`,
+        url: `/fs_stijn/eindwerk/api/monuments/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -197,7 +199,7 @@ const api = createApi({
     //Wijzig een land
     updateOneLand: builder.mutation({
       query: ({ id, name = "test", flag = "test" }) => ({
-        url: `/countries/${id}.json`,
+        url: `/fs_stijn/eindwerk/api/countries/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -212,7 +214,7 @@ const api = createApi({
       query: ({ id, languages }) => (
         console.log(languages),
         {
-          url: `/countries/${id}.json`,
+          url: `/fs_stijn/eindwerk/api/countries/${id}.json`,
           headers: {
             "Content-Type": "application/json",
             accept: "application/json",
@@ -232,7 +234,7 @@ const api = createApi({
         longitude = 0,
         img = placeholderImg,
       }) => ({
-        url: `/cities/${id}.json`,
+        url: `/fs_stijn/eindwerk/api/cities/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -245,7 +247,7 @@ const api = createApi({
     //Wijzig een monument
     updateOneMonument: builder.mutation({
       query: ({ id, name = "", description = "", img }) => ({
-        url: `/monuments/${id}.json`,
+        url: `/fs_stijn/eindwerk/api/monuments/${id}.json`,
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -277,6 +279,7 @@ export const {
   useUpdateOneCityMutation,
   useUpdateOneMonumentMutation,
   useChangeLanguagesCityMutation,
+
 } = api;
 
 /*    //Get alle landen

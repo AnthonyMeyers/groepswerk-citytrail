@@ -1,4 +1,5 @@
 export default function AppHome() {
+  //Vaste pagina zonder enige extra's
   return (
     <>
       <section className="home">
