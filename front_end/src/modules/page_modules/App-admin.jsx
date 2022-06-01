@@ -6,6 +6,7 @@ import {
   useAddOneLanguageMutation,
   useRemoveOneLanguageMutation,
   useGetAllLanguagesQuery,
+
 } from "../../data/landenApi";
 
 export default function AppAdmin() {
@@ -15,18 +16,25 @@ export default function AppAdmin() {
   const [deleteLanguage, setToDeleteLanguage] = useState("");
   const [addLanguage] = useAddOneLanguageMutation();
   const [removeLanguage] = useRemoveOneLanguageMutation();
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+
   const {
     data: languages,
     isError,
     isLoading,
     isSuccess,
   } = useGetAllLanguagesQuery();
+
+  //Voegt een land toe
   function handleLanguageSubmit(e) {
     e.preventDefault();
     addLanguage(language);
     setLanguage("");
   }
 
+  //Verwijderd een land volledig
   function handleLanguageRemove(e) {
     e.preventDefault();
     if (deleteLanguage.length > 0) {
@@ -34,24 +42,33 @@ export default function AppAdmin() {
       setToDeleteLanguage("");
     }
   }
-  function handleLoginClick() {
+
+  //Doet een post naar de databank om login voor admin na te kijken
+  function handleLoginSubmit(e) {
+e.preventDefault();
     axios
-      .post("https://127.0.0.1:8000/api/login_check", {
-        username: "test@test.be",
-        password: "test",
+      .post("https://wdev2.be/fs_stijn/eindwerk/api/login_check", {
+        username: name,
+        password: password,
       })
-      .then((response) => console.log(response.data.token))
+      .then((response) => dispatch(changeState({key: response.data.token})))
       .catch((error) => {
         console.error(error);
       });
+
+
   }
   return (
     <>
-      <p>set admin</p>
-      <button onClick={() => dispatch(changeState())}>
-        activate admin {admin ? "on" : "off"}
-      </button>
-      <button onClick={handleLoginClick}>login</button>
+    <div className="admin">
+     <form onSubmit={handleLoginSubmit} className="admin__form">
+       <label className="admin__form__label">Gebruikersnaam
+        <input value={name} onInput={(e)=>setName(e.target.value)}type="text" className="admin__form__label__input"/></label>
+        <label className="admin__form__label">Paswoord
+        <input type="password" value={password} onInput={(e)=>setPassword(e.target.value)} className="admin__form__label__input"/></label>
+      <button>login</button>
+      </form>
+      </div>
       {admin && (
         <div className="admin">
           <form className="admin__form" onSubmit={handleLanguageSubmit}>

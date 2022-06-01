@@ -21,7 +21,7 @@ export default function AppNavbar({ className, onClickItem }) {
         <ul className="navbar">
           <li className="navbar__listitem">
             <NavLink
-              to={"/home"}
+              to={"fs_anthonym/groepswerk/home"}
               onClick={onClickItem}
               className="navbar__listitem__link"
             >
@@ -30,7 +30,7 @@ export default function AppNavbar({ className, onClickItem }) {
           </li>
           <li className="navbar__listitem">
             <NavLink
-              to={"/landen"}
+              to={"fs_anthonym/groepswerk/landen"}
               onClick={onClickItem}
               className="navbar__listitem__link"
             >
@@ -39,7 +39,7 @@ export default function AppNavbar({ className, onClickItem }) {
           </li>
           <li className="navbar__listitem">
             <NavLink
-              to={"/admin"}
+              to={"fs_anthonym/groepswerk/admin"}
               onClick={onClickItem}
               className="navbar__listitem__link"
             >
@@ -48,7 +48,7 @@ export default function AppNavbar({ className, onClickItem }) {
           </li>
           <li className="navbar__listitem">
             <NavLink
-              to={"/team"}
+              to={"fs_anthonym/groepswerk/team"}
               onClick={onClickItem}
               className="navbar__listitem__link"
             >

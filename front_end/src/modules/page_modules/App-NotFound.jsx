@@ -6,18 +6,19 @@ import { useGetAllLandenQuery } from "../../data/landenApi";
 const AppNotFound = () => {
   const [country, setCountry] = useState(null);
 
+  //Laad alle landen op
   const {
     data: countries,
     isError: error,
     isLoading: loading,
   } = useGetAllLandenQuery();
 
+  //Trekt willekeurig een land uit de lijst om voor te stellen aan de gebruiker
   useEffect(() => {
     if (countries && "list" in countries && countries.list.length > 0) {
       setCountry(
         countries.list[Math.floor(Math.random() * countries.list.length)]
       );
-      console.log(country);
     }
   }, [countries]);
   return (
