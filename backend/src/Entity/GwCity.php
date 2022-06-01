@@ -26,6 +26,9 @@ use function Symfony\Component\String\u;
  *          "put"={"security"="is_granted('ROLE_USER')"},
  *          "patch"={"security"="is_granted('ROLE_USER')"},
  *          "delete"={"security"="is_granted('ROLE_USER')"}
+ *      },
+ *     attributes={
+ *     "order"= {"name"}
  *      }
  * )
  * @ORM\Entity(repositoryClass=GwCityRepository::class)
