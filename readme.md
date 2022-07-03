@@ -3,6 +3,7 @@
 # Groepswerk Full Stack Developer
 
 Front end: Anthony Meyers
+
 Back end: Stijn Gyssens
 
 # intro
