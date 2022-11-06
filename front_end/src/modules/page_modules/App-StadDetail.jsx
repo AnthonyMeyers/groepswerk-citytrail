@@ -99,7 +99,7 @@ const AppStadDetail = () => {
         : latTest;
 
     mapboxgl.accessToken =
-    "pk.eyJ1Ijoic3Rpam5neXNzZW5zIiwiYSI6ImNraGdkMDQ3NzA2bXcyc3A5dDBweTBmcmUifQ.Rlt-rT2CHiOts39bY7EyWw";
+    "MAPBOX_ACCESS_TOKEN";
     const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v10',
